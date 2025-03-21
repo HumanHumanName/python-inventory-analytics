@@ -17,10 +17,17 @@ cursor = conn_obj.cursor()
 
 #cursor.execute("CREATE DATABASE IF NOT EXISTS test_database")
 
+# margin is in percentages
 # cursor.execute("""CREATE TABLE test_database.inventory
 #                 (
-#                     item_id int(10) not null,
+#                     item_id int(10) not null AUTO_INCREMENT,
 #                     item_name varchar(20) not null,
-#                     item_count int(10) not null
+#                     item_cost decimal(8,2) not null,
+#                     item_margin decimal(5,2) not null,
+#                     item_stock int(10) not null,
+#                     item_manufacturer_name varchar(40) not null,
+#                     item_manufacturer_incharge varchar(20) not null,
+#                     item_manufacturer_contact_no int(10) not null,
+#                     PRIMARY KEY (item_id)
 #                 );""")
 
