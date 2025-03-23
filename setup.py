@@ -6,7 +6,7 @@ def initialise_tables(cursor):
   # Replace test_database with real name later
   cursor.execute("CREATE DATABASE IF NOT EXISTS test_database")
 
-  cursor.execute("USE test_database;")
+  cursor.execute("USE test_database")
   # margin, discount is in percentages
   cursor.execute("""CREATE TABLE IF NOT EXISTS test_database.inventory
                   (
@@ -23,6 +23,17 @@ def initialise_tables(cursor):
                       item_manufacturer_contact_no int(10) not null,
                       PRIMARY KEY (item_id)
                   );""")
+  # Debug (stop repeating values (2 indexes of the same item) later)
+  cursor.execute("""INSERT INTO inventory (item_name,item_cost,item_gst,item_discount,item_final_cost,item_margin,item_stock,item_manufacturer_name,item_manufacturer_incharge,item_manufacturer_contact_no)
+                 VALUES
+                 ("Apples",139.00,10.00,5.00,122.55,50.00,500,"APPLE","Tim Cook",0999666333),
+                 ("Raspberry",139.00,10.00,5.00,122.55,50.00,500,"RASPBERRY PI","Eben Upton",0111222333),
+                 ("Orange",139.00,10.00,5.00,122.55,50.00,500,"ORANGE PI","Zhao Yifan",0555666777),
+                 ("Bannana",139.00,10.00,5.00,122.55,50.00,500,"BANNANA PI","U.N. Owen",0333444555),
+                 ("Potato",139.00,10.00,5.00,122.55,50.00,500,"LE POTATO LIBRE","W.H. Onos",0777888999);
+                 """) # Debug
+  cursor.execute('commit')
+
 
   # discount is in percentages
   cursor.execute("""CREATE TABLE IF NOT EXISTS test_database.orders
@@ -39,4 +50,13 @@ def initialise_tables(cursor):
                       PRIMARY KEY (order_id)
                   );""")
 
-
+  # Debug
+  cursor.execute("""INSERT INTO orders (order_item_name,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
+                 VALUES
+                 ("Apples",139.00,10.00,5.00,122.55,1,"Tom Bakes","1999666333"),
+                 ("Raspberry",139.00,10.00,5.00,122.55,1,"Nebe Downton","1111222333"),
+                 ("Orange",139.00,10.00,5.00,122.55,1,"Zhao Yistan","1555666777"),
+                 ("Bannana",139.00,10.00,5.00,122.55,1,"K.N. Owen","1333444555"),
+                 ("Potato",139.00,10.00,5.00,122.55,1,"W.E. Noe","1777888999");
+                 """) # Debug
+  cursor.execute('commit')

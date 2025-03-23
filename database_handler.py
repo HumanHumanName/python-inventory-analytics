@@ -16,10 +16,12 @@ cursor = conn_obj.cursor()
 
 setup.initialise_tables(cursor)
 
-# cursor.execute("USE test_database;") #Debug
+#cursor.execute("USE test_database;") #Debug
+
 # cursor.execute("SHOW COLUMNS FROM inventory;") #Debug
 # for i in cursor: #Debug
 #     print(i) #Debug
+
 # cursor.execute("SHOW COLUMNS FROM orders;") #Debug
 # for i in cursor: #Debug
 #     print(i) #Debug
