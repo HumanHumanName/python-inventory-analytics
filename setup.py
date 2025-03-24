@@ -8,7 +8,8 @@ def initialise_tables(cursor):
 
   cursor.execute("USE test_database")
   # margin, discount is in percentages
-  cursor.execute("""CREATE TABLE IF NOT EXISTS test_database.inventory
+  cursor.execute("DROP TABLE IF EXISTS inventory;") # Handles setup being run more than once
+  cursor.execute("""CREATE TABLE test_database.inventory
                   (
                       item_id int(10) not null AUTO_INCREMENT,
                       item_name varchar(20) not null,
@@ -23,7 +24,7 @@ def initialise_tables(cursor):
                       item_manufacturer_contact_no int(10) not null,
                       PRIMARY KEY (item_id)
                   );""")
-  # Debug (stop repeating values (2 indexes of the same item) later)
+  # Debug
   cursor.execute("""INSERT INTO inventory (item_name,item_cost,item_gst,item_discount,item_final_cost,item_margin,item_stock,item_manufacturer_name,item_manufacturer_incharge,item_manufacturer_contact_no)
                  VALUES
                  ("Apples",139.00,10.00,5.00,122.55,50.00,500,"APPLE","Tim Cook",0999666333),
@@ -36,7 +37,8 @@ def initialise_tables(cursor):
 
 
   # discount is in percentages
-  cursor.execute("""CREATE TABLE IF NOT EXISTS test_database.orders
+  cursor.execute("DROP TABLE IF EXISTS orders;") # Handles setup being run more than once
+  cursor.execute("""CREATE TABLE test_database.orders
                   (
                       order_id int(10) not null AUTO_INCREMENT,
                       order_item_name varchar(20) not null,
