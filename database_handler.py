@@ -2,20 +2,27 @@
 import mysql.connector as conn
 import setup
 
-user_name = str(input("Please enter your MySQL username: "))
-user_password = str(input("Please enter your MySQL password: "))
-print("Running locally...")
+def enter_mysql():
+    correct_credentials = False
 
-# TO ADD try catch with from mysql.connector import errorcode for failure to connect
-conn_obj = conn.connect(host = "localhost", user = user_name, passwd = user_password)
+    while correct_credentials != True:
+        try:
+            user_name = str(input("Please enter your MySQL username: "))
+            user_password = str(input("Please enter your MySQL password: "))
+            print("Running locally...")
 
-if conn_obj.is_connected() == True:
-    print("Connected successfully")
+            conn_obj = conn.connect(host = "localhost", user = user_name, passwd = user_password)
+            correct_credentials = True
+        except:
+            print("There was a mistake with the username/password; Please try again \n")
 
-cursor = conn_obj.cursor()
 
-setup.initialise_tables(cursor)
+    if conn_obj.is_connected() == True:
+        print("Connected successfully")
 
+    cursor = conn_obj.cursor()
+
+    setup.initialise_tables(cursor)
 #cursor.execute("USE test_database;") #Debug
 
 # cursor.execute("SHOW COLUMNS FROM inventory;") #Debug
