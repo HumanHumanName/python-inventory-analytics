@@ -3,11 +3,11 @@
 
 def initialise_tables(cursor):
   # Working under a database called test_database; Setup
-  # Replace test_database with real name later
+  # CC Replace test_database with real name later
   cursor.execute("CREATE DATABASE IF NOT EXISTS test_database")
 
   cursor.execute("USE test_database")
-  # margin, discount is in percentages
+  # margin, discount is in percentages and number is in varchar to handle leading zeros
   cursor.execute("DROP TABLE IF EXISTS inventory;") # Handles setup being run more than once
   cursor.execute("""CREATE TABLE test_database.inventory
                   (
@@ -21,22 +21,22 @@ def initialise_tables(cursor):
                       item_stock int(10) not null,
                       item_manufacturer_name varchar(40) not null,
                       item_manufacturer_incharge varchar(20) not null,
-                      item_manufacturer_contact_no int(10) not null,
+                      item_manufacturer_contact_no varchar(10) not null,
                       PRIMARY KEY (item_id)
                   );""")
   # Debug
   cursor.execute("""INSERT INTO inventory (item_name,item_cost,item_gst,item_discount,item_final_cost,item_margin,item_stock,item_manufacturer_name,item_manufacturer_incharge,item_manufacturer_contact_no)
                  VALUES
-                 ("Apples",139.00,10.00,5.00,122.55,50.00,500,"APPLE","Tim Cook",999666333),
-                 ("Raspberry",139.00,10.00,5.00,122.55,50.00,500,"RASPBERRY PI","Eben Upton",111222333),
-                 ("Orange",139.00,10.00,5.00,122.55,50.00,500,"ORANGE PI","Zhao Yifan",555666777),
-                 ("Bannana",139.00,10.00,5.00,122.55,50.00,500,"BANNANA PI","U.N. Owen",333444555),
-                 ("Potato",139.00,10.00,5.00,122.55,50.00,500,"LE POTATO LIBRE","W.H. Onos",777888999);
+                 ("Apples",139.00,10.00,5.00,122.55,50.00,500,"APPLE","Tim Cook","0999666333"),
+                 ("Raspberry",139.00,10.00,5.00,122.55,50.00,500,"RASPBERRY PI","Eben Upton","0111222333"),
+                 ("Orange",139.00,10.00,5.00,122.55,50.00,500,"ORANGE PI","Zhao Yifan","0555666777"),
+                 ("Bannana",139.00,10.00,5.00,122.55,50.00,500,"BANNANA PI","U.N. Owen","0333444555"),
+                 ("Potato",139.00,10.00,5.00,122.55,50.00,500,"LE POTATO LIBRE","W.H. Onos","0777888999");
                  """) # Debug
   cursor.execute('commit')
 
 
-  # discount is in percentages
+  # discount is in percentages and number is in varchar to handle leading zeros
   cursor.execute("DROP TABLE IF EXISTS orders;") # Handles setup being run more than once
   cursor.execute("""CREATE TABLE test_database.orders
                   (
@@ -48,7 +48,7 @@ def initialise_tables(cursor):
                       order_final_cost decimal(8,2) not null,
                       order_quantity int(10) not null,
                       order_customer_name varchar(20) not null,
-                      order_customer_contact_no int(10),
+                      order_customer_contact_no varchar(10),
                       PRIMARY KEY (order_id)
                   );""")
 
