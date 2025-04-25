@@ -59,3 +59,22 @@ def initialise_new_orders(values):
     cursor.execute(command)
     cursor.execute("commit")
     cursor.close()
+
+def retrieve_via_sql_query(sql_select, sql_from, sql_where = ""):
+    command = "SELECT " + sql_select + "\n"
+
+    if sql_where == "":
+        command += "FROM " + sql_from + ";" # if no where clause specified
+    else:
+        command += "FROM " + sql_from + "\n"
+        command += "WHERE " + sql_where + ";"
+
+    cursor = conn_obj.cursor()
+    cursor.execute(command)
+
+    data = cursor.fetchall()
+
+    cursor.execute("commit")
+    cursor.close()
+
+    return(data)
