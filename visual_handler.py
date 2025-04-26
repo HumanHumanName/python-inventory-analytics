@@ -5,7 +5,7 @@ import database_handler
 def run_GUI():
   root = tk.Tk()
   root.title("Test view")
-  root.geometry("600x400")
+  root.geometry("690x400")
 
   # Setting style
   style=ttk.Style()
