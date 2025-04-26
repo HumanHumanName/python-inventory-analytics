@@ -16,5 +16,5 @@ orders = [("Apples",139.00,10.00,5.00,122.55,1,"Tom Bakes","1999666333"),
 database_handler.enter_mysql()
 database_handler.initialise_new_items(items) # DEBUG
 database_handler.initialise_new_orders(orders) # DEBUG
-print(database_handler.retrieve_via_sql_query("order_item_name","orders","order_id = 10"))
+# print(database_handler.retrieve_via_sql_query("order_item_name","orders","order_id = 10")) # DEBUG
 visual_handler.run_GUI()
