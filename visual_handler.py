@@ -56,16 +56,16 @@ def run_GUI():
   inventory_viewer.column("item_id", anchor="center", width=40)
   inventory_viewer.heading('item_id', text = 'S.No')
 
-  inventory_viewer.column("item_name", anchor="center", width=85)
+  inventory_viewer.column("item_name", anchor="center", width=80)
   inventory_viewer.heading('item_name', text = 'Name')
 
   inventory_viewer.column("item_cost", anchor="center", width=55)
   inventory_viewer.heading('item_cost', text = 'Cost')
 
-  inventory_viewer.column("item_final_cost", anchor="center", width=45)
+  inventory_viewer.column("item_final_cost", anchor="center", width=55)
   inventory_viewer.heading('item_final_cost', text = 'Total')
 
-  inventory_viewer.column("item_stock", anchor="center", width=50)
+  inventory_viewer.column("item_stock", anchor="center", width=45)
   inventory_viewer.heading('item_stock', text = 'Stock')
 
   inventory_viewer.grid(row = 1,column = 0)
