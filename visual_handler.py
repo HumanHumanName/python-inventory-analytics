@@ -6,6 +6,7 @@ def run_GUI():
   root = tk.Tk()
   root.title("Test view")
   root.geometry("600x385")
+  root.resizable(False, False)
 
   # setting style
   style=ttk.Style()
@@ -14,10 +15,57 @@ def run_GUI():
   database_label = tk.Label(root,text = "Database Viewer", relief = "raised")
   database_label.grid(row = 0,
                      column = 0,
-                     padx = 90,
-                     pady = 10
+                     padx = 10,
+                     pady = 10,
+                     sticky = "nesw"
                      )
 
+  other_functions_label = tk.Label(root, text = '                            Other Functions                            ', relief = "raised")
+  other_functions_label.grid(row = 0,
+                            column = 1,
+                            pady = 10,
+                            sticky = "e"
+                            )
+
+  button_frame = tk.Frame(root)
+  button_frame.grid(row = 1,
+                    column = 1,
+                    sticky = "nsew"
+                    )
+
+  #CC use better names and insure the ordering of the properties in tk brackets is consitant and add icons to buttons
+  button1 = tk.Button(button_frame,
+                      height = 5,
+                      width = 10
+                      )
+
+  button1.grid(row = 0,
+               column = 0,
+               padx = 3,
+               pady = 5
+               )
+
+  button2 = tk.Button(button_frame,
+                      height = 5,
+                      width = 6,
+                      )
+
+  button2.grid(row = 0,
+               column = 1,
+               pady = 5,
+               sticky = "e"
+              )
+
+  button3 = tk.Button(button_frame,
+                      height = 5,
+                      width = 6,
+                      )
+
+  button3.grid(row = 0,
+               column = 2,
+               pady = 5,
+               sticky = "w"
+              )
   # Notebook to contain the two tables in our database
   tables_notebook = ttk.Notebook(root)
   tables_notebook.grid(row = 1,
@@ -26,10 +74,10 @@ def run_GUI():
                        )
 
   inventory_tab= ttk.Frame(tables_notebook)
-  tables_notebook.add(inventory_tab, text= "Inventory")
+  tables_notebook.add(inventory_tab, text= "    Inventory    ")
 
   orders_tab= ttk.Frame(tables_notebook)
-  tables_notebook.add(orders_tab, text= "Orders")
+  tables_notebook.add(orders_tab, text= "    Orders    ")
 
   # inventory viewer code
   inventory_data = database_handler.retrieve_via_sql_query("item_id,item_name,item_cost,item_final_cost,item_stock","inventory")
@@ -65,7 +113,7 @@ def run_GUI():
   inventory_viewer.column("item_final_cost", anchor="center", width=55)
   inventory_viewer.heading('item_final_cost', text = 'Total')
 
-  inventory_viewer.column("item_stock", anchor="center", width=45)
+  inventory_viewer.column("item_stock", anchor="center", width=50)
   inventory_viewer.heading('item_stock', text = 'Stock')
 
   inventory_viewer.grid(row = 1,column = 0)
@@ -108,7 +156,7 @@ def run_GUI():
   orders_viewer.column("order_final_cost", anchor="center", width=55)
   orders_viewer.heading('order_final_cost', text = 'Total')
 
-  orders_viewer.column("order_quantity", anchor="center", width=40)
+  orders_viewer.column("order_quantity", anchor="center", width=45)
   orders_viewer.heading('order_quantity', text = 'Amt')
 
   orders_viewer.grid(row = 1,column = 0)
@@ -116,6 +164,7 @@ def run_GUI():
   # insert values into orders_viewer
   for i in orders_data:
     orders_viewer.insert(parent = '', index = tk.END, values = i)
+
 
 
   root.mainloop()
