@@ -42,6 +42,7 @@ def initialise_tables(cursor):
                   (
                       order_id int(10) not null AUTO_INCREMENT,
                       order_item_name varchar(20) not null,
+                      order_date date not null,
                       order_initial_cost decimal(8,2) not null,
                       order_gst decimal(8,2) not null,
                       order_discount decimal(5,2) not null,
@@ -53,12 +54,12 @@ def initialise_tables(cursor):
                   );""")
 
   # Debug
-  cursor.execute("""INSERT INTO orders (order_item_name,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
+  cursor.execute("""INSERT INTO orders (order_item_name,order_date,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
                  VALUES
-                 ("Apples",139.00,10.00,5.00,122.55,1,"Tom Bakes","1999666333"),
-                 ("Raspberry",139.00,10.00,5.00,122.55,1,"Nebe Downton","1111222333"),
-                 ("Orange",139.00,10.00,5.00,122.55,1,"Zhao Yistan","1555666777"),
-                 ("Bannana",139.00,10.00,5.00,122.55,1,"K.N. Owen","1333444555"),
-                 ("Potato",139.00,10.00,5.00,122.55,1,"W.E. Noe","1777888999");
+                 ("Apples","2025-04-08",139.00,10.00,5.00,122.55,1,"Tom Bakes","1999666333"),
+                 ("Raspberry","2025-04-08",139.00,10.00,5.00,122.55,1,"Nebe Downton","1111222333"),
+                 ("Orange","2025-04-08",139.00,10.00,5.00,122.55,1,"Zhao Yistan","1555666777"),
+                 ("Bannana","2025-04-08",139.00,10.00,5.00,122.55,1,"K.N. Owen","1333444555"),
+                 ("Potato","2025-04-08",139.00,10.00,5.00,122.55,1,"W.E. Noe","1777888999");
                  """) # Debug
   cursor.execute('commit')

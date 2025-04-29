@@ -46,7 +46,7 @@ def initialise_new_items(values):
 def initialise_new_orders(values):
 
     # values is a list of tuples; each tuple describes an order in the format: (order_item_name,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
-    command = """INSERT INTO orders (order_item_name,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
+    command = """INSERT INTO orders (order_item_name,order_date,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
                  VALUES
               """
 
