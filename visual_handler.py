@@ -33,39 +33,42 @@ def run_GUI():
                     sticky = "nsew"
                     )
 
-  #CC use better names and insure the ordering of the properties in tk brackets is consitant and add icons to buttons
-  button1 = tk.Button(button_frame,
-                      height = 5,
-                      width = 10
-                      )
+  #CC insure the ordering of the properties in tk brackets is consitant and add icons to buttons
+  modelling_view_button = tk.Button(button_frame,
+                                    text = "Modelling \n View",
+                                    height = 5,
+                                    width = 10
+                                    )
 
-  button1.grid(row = 0,
-               column = 0,
-               padx = 3,
-               pady = 5
-               )
+  modelling_view_button.grid(row = 0,
+                            column = 0,
+                            padx = 3,
+                            pady = 5
+                            )
 
-  button2 = tk.Button(button_frame,
-                      height = 5,
-                      width = 6,
-                      )
+  refresh_database_button = tk.Button(button_frame,
+                                     text = "Refresh \n Database",
+                                     height = 5,
+                                     width = 6,
+                                     )
 
-  button2.grid(row = 0,
-               column = 1,
-               pady = 5,
-               sticky = "e"
-              )
+  refresh_database_button.grid(row = 0,
+                              column = 1,
+                              pady = 5,
+                              sticky = "e"
+                             )
 
-  button3 = tk.Button(button_frame,
-                      height = 5,
-                      width = 6,
-                      )
+  import_database_button = tk.Button(button_frame,
+                                    text = "Import \n Database",
+                                    height = 5,
+                                    width = 6,
+                                    )
 
-  button3.grid(row = 0,
-               column = 2,
-               pady = 5,
-               sticky = "w"
-              )
+  import_database_button.grid(row = 0,
+                             column = 2,
+                             pady = 5,
+                             sticky = "w"
+                             )
   # Notebook to contain the two tables in our database
   tables_notebook = ttk.Notebook(root)
   tables_notebook.grid(row = 1,
