@@ -35,7 +35,7 @@ def run_GUI():
 
   #CC insure the ordering of the properties in tk brackets is consitant and add icons to buttons
   modelling_view_button = tk.Button(button_frame,
-                                    text = "Modelling \n View",
+                                    text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                     height = 5,
                                     width = 10
                                     )
@@ -47,7 +47,7 @@ def run_GUI():
                             )
 
   refresh_database_button = tk.Button(button_frame,
-                                     text = "Refresh \n Database",
+                                     text = "▰▱▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰",
                                      height = 5,
                                      width = 6,
                                      )
@@ -59,7 +59,7 @@ def run_GUI():
                              )
 
   import_database_button = tk.Button(button_frame,
-                                    text = "Import \n Database",
+                                    text = "▰▱▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰",
                                     height = 5,
                                     width = 6,
                                     )
