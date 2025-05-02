@@ -12,7 +12,7 @@ def run_GUI():
   style=ttk.Style()
   style.theme_use('clam')
 
-  database_label = tk.Label(root,text = "Database Viewer", relief = "raised")
+  database_label = tk.Label(root,text = "Database Viewer", relief = "raised", font = "TkFixedFont")
   database_label.grid(row = 0,
                      column = 0,
                      padx = 10,
@@ -20,7 +20,7 @@ def run_GUI():
                      sticky = "nesw"
                      )
 
-  other_functions_label = tk.Label(root, text = '                            Other Functions                            ', relief = "raised")
+  other_functions_label = tk.Label(root, text = '          Other Functions        ', relief = "raised", font = "TkFixedFont")
   other_functions_label.grid(row = 0,
                             column = 1,
                             pady = 10,
@@ -36,18 +36,20 @@ def run_GUI():
   #CC insure the ordering of the properties in tk brackets is consitant and add icons to buttons
   modelling_view_button = tk.Button(button_frame,
                                     text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
+                                    font = "TkSmallCaptionFont",
                                     height = 5,
                                     width = 10
                                     )
 
   modelling_view_button.grid(row = 0,
                             column = 0,
-                            padx = 3,
+                            padx = 5,
                             pady = 5
                             )
 
   refresh_database_button = tk.Button(button_frame,
                                      text = "▰▱▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰",
+                                     font = "TkSmallCaptionFont",
                                      height = 5,
                                      width = 6,
                                      )
@@ -55,11 +57,12 @@ def run_GUI():
   refresh_database_button.grid(row = 0,
                               column = 1,
                               pady = 5,
-                              sticky = "e"
+                              padx = 5
                              )
 
   import_database_button = tk.Button(button_frame,
                                     text = "▰▱▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰",
+                                    font = "TkSmallCaptionFont",
                                     height = 5,
                                     width = 6,
                                     )
@@ -67,7 +70,7 @@ def run_GUI():
   import_database_button.grid(row = 0,
                              column = 2,
                              pady = 5,
-                             sticky = "w"
+                             padx = 5
                              )
   # Notebook to contain the two tables in our database
   tables_notebook = ttk.Notebook(root)
