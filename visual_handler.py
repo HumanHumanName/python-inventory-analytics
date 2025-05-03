@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter.filedialog import askopenfilename
 import database_handler
 
 def run_GUI():
   root = tk.Tk()
-  root.title("Test view")
+  root.title("Home view")
   root.geometry("600x385")
   root.resizable(False, False)
 
@@ -12,7 +13,7 @@ def run_GUI():
   style=ttk.Style()
   style.theme_use('clam')
 
-  database_label = tk.Label(root,text = "Database Viewer", relief = "raised", font = "TkFixedFont")
+  database_label = tk.Label(root,text = "▭▭▬▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▬▭▭", relief = "ridge", font = "TkFixedFont")
   database_label.grid(row = 0,
                      column = 0,
                      padx = 10,
@@ -20,7 +21,7 @@ def run_GUI():
                      sticky = "nesw"
                      )
 
-  other_functions_label = tk.Label(root, text = '          Other Functions        ', relief = "raised", font = "TkFixedFont")
+  other_functions_label = tk.Label(root, text = ' ▭▣▓ ▒ ▒ Other Functions ▒ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
   other_functions_label.grid(row = 0,
                             column = 1,
                             pady = 10,
@@ -33,7 +34,7 @@ def run_GUI():
                     sticky = "nsew"
                     )
 
-  #CC insure the ordering of the properties in tk brackets is consitant and add icons to buttons
+  #CC insure the ordering of the properties in tk brackets is consitant
   modelling_view_button = tk.Button(button_frame,
                                     text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                     font = "TkSmallCaptionFont",
@@ -72,6 +73,61 @@ def run_GUI():
                              pady = 5,
                              padx = 5
                              )
+
+  def set_inventory_path():
+    # CC Send this path V to a func to actually set
+    file_name = tk.filedialog.askopenfilename()
+    inventory_path.set("Inventory path: \n" + file_name[:20] + "...")
+
+  inventory_path = tk.StringVar()
+  inventory_path_button = tk.Button(button_frame,
+                                    textvariable = inventory_path,
+                                    font = "TkFixedFont",
+                                    command = set_inventory_path,
+                                    height = 3
+                                    )
+  inventory_path.set("Set inventory path")
+
+  inventory_path_button.grid(row = 1,
+                            columnspan = 3,
+                            sticky = "nsew"
+  )
+
+  def set_orders_path():
+    # CC Send this path V to a func to actually set
+    file_name = tk.filedialog.askopenfilename()
+    orders_path.set("Orders path: \n" + file_name[:20] + "...")
+
+  orders_path = tk.StringVar()
+  orders_path_button = tk.Button(button_frame,
+                                textvariable = orders_path,
+                                font = "TkFixedFont",
+                                command = set_orders_path,
+                                height = 3
+                                )
+  orders_path.set("Set orders path")
+
+  orders_path_button.grid(row = 2,
+                          columnspan = 3,
+                          sticky = "nsew"
+  )
+
+  spacer = tk.Label(button_frame, relief = "raised")
+  spacer.grid(row = 3,
+              columnspan = 3,
+              sticky = "nsew")
+
+  exit_button = tk.Button(button_frame,
+                          text = "▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \nQuit Python-Inventory-Analytics\n ▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱",
+                          font = "TkFixedFont",
+                          command = root.destroy,
+                          height = 2
+                          )
+  exit_button.grid(row = 4,
+                   columnspan = 3,
+                   sticky = "ew"
+                   )
+
   # Notebook to contain the two tables in our database
   tables_notebook = ttk.Notebook(root)
   tables_notebook.grid(row = 1,
