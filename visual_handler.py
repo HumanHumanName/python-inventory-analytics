@@ -35,6 +35,17 @@ def run_GUI():
                     )
 
   #CC insure the ordering of the properties in tk brackets is consitant
+  first_row_frame = tk.Frame(button_frame)
+  first_row_frame.grid(row = 0,
+                       columnspan = 3,
+                       sticky = "nsew"
+                       )
+
+  # Each column must take equal amount of space
+  first_row_frame.columnconfigure(0, weight=1)
+  first_row_frame.columnconfigure(1, weight=1)
+  first_row_frame.columnconfigure(2, weight=1)
+
   modelling_view_button = tk.Button(button_frame,
                                     text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                     font = "TkSmallCaptionFont",
@@ -44,7 +55,6 @@ def run_GUI():
 
   modelling_view_button.grid(row = 0,
                             column = 0,
-                            padx = 5,
                             pady = 5
                             )
 
@@ -57,8 +67,7 @@ def run_GUI():
 
   refresh_database_button.grid(row = 0,
                               column = 1,
-                              pady = 5,
-                              padx = 5
+                              pady = 5
                              )
 
   import_database_button = tk.Button(button_frame,
@@ -70,8 +79,7 @@ def run_GUI():
 
   import_database_button.grid(row = 0,
                              column = 2,
-                             pady = 5,
-                             padx = 5
+                             pady = 5
                              )
 
   def set_inventory_path():
