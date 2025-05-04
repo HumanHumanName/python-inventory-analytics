@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
+from numpy import genfromtxt
 import database_handler
 
 def run_GUI():
@@ -70,9 +71,23 @@ def run_GUI():
                               pady = 5
                              )
 
+
+  full_inventory_path = tk.StringVar()
+  full_orders_path = tk.StringVar()
+  def import_database():
+    # CC Note that this works, just have to refresh the notebook
+    if full_inventory_path.get() != "" and full_orders_path.get() != "":
+      items = genfromtxt(full_inventory_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
+      database_handler.initialise_new_items(items)
+
+      orders = genfromtxt(full_orders_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
+      database_handler.initialise_new_orders(orders)
+
+
   import_database_button = tk.Button(first_row_frame,
                                     text = "▰▱▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰",
                                     font = "TkSmallCaptionFont",
+                                    command = import_database,
                                     height = 5,
                                     width = 6,
                                     )
@@ -83,9 +98,9 @@ def run_GUI():
                              )
 
   def set_inventory_path():
-    # CC Send this path V to a func to actually set
-    file_name = tk.filedialog.askopenfilename()
-    inventory_path.set("Inventory path: \n" + file_name[:20] + "...")
+    full_inventory_path.set(tk.filedialog.askopenfilename())
+    temp = full_inventory_path.get()
+    inventory_path.set("Inventory path: \n" + temp[:20] + "...")
 
   inventory_path = tk.StringVar()
   inventory_path_button = tk.Button(button_frame,
@@ -102,9 +117,9 @@ def run_GUI():
   )
 
   def set_orders_path():
-    # CC Send this path V to a func to actually set
-    file_name = tk.filedialog.askopenfilename()
-    orders_path.set("Orders path: \n" + file_name[:20] + "...")
+    full_orders_path.set(tk.filedialog.askopenfilename())
+    temp = full_inventory_path.get()
+    orders_path.set("Orders path: \n" + temp[:20] + "...")
 
   orders_path = tk.StringVar()
   orders_path_button = tk.Button(button_frame,
