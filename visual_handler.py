@@ -46,7 +46,7 @@ def run_GUI():
   first_row_frame.columnconfigure(1, weight=1)
   first_row_frame.columnconfigure(2, weight=1)
 
-  modelling_view_button = tk.Button(button_frame,
+  modelling_view_button = tk.Button(first_row_frame,
                                     text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                     font = "TkSmallCaptionFont",
                                     height = 5,
@@ -58,7 +58,7 @@ def run_GUI():
                             pady = 5
                             )
 
-  refresh_database_button = tk.Button(button_frame,
+  refresh_database_button = tk.Button(first_row_frame,
                                      text = "▰▱▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰",
                                      font = "TkSmallCaptionFont",
                                      height = 5,
@@ -70,7 +70,7 @@ def run_GUI():
                               pady = 5
                              )
 
-  import_database_button = tk.Button(button_frame,
+  import_database_button = tk.Button(first_row_frame,
                                     text = "▰▱▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰",
                                     font = "TkSmallCaptionFont",
                                     height = 5,
