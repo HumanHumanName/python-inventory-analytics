@@ -7,7 +7,7 @@ import database_handler
 def run_GUI():
   root = tk.Tk()
   root.title("Home view")
-  root.geometry("600x385")
+  root.geometry("610x385")
   root.resizable(False, False)
 
   # setting style
@@ -16,6 +16,10 @@ def run_GUI():
 
   # functions
   def populate_data():
+   # removing response message if any
+   response_message.set("")
+
+   # inventory viewer
    inventory_data = database_handler.retrieve_via_sql_query("item_id,item_name,item_cost,item_final_cost,item_stock","inventory")
 
    inventory_viewer = ttk.Treeview(inventory_tab,
@@ -102,13 +106,18 @@ def run_GUI():
      orders_viewer.insert(parent = '', index = tk.END, values = i)
 
   def import_database():
-    # CC add conformation text in spacer later
     if full_inventory_path.get() != "" and full_orders_path.get() != "":
       items = genfromtxt(full_inventory_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
-      database_handler.initialise_new_items(items)
+      database_handler.import_items(items)
 
       orders = genfromtxt(full_orders_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
-      database_handler.initialise_new_orders(orders)
+      database_handler.import_orders(orders)
+
+      response_message.set("Import Successful; Please Refresh")
+      spacer.config(fg = "green")
+    else:
+      response_message.set("Import Unsuccessful; Please try again")
+      spacer.config(fg = "red")
 
   def set_inventory_path():
     full_inventory_path.set(tk.filedialog.askopenfilename())
@@ -223,10 +232,12 @@ def run_GUI():
                           sticky = "nsew"
   )
 
-  spacer = tk.Label(button_frame, relief = "raised")
+  response_message = tk.StringVar()
+  spacer = tk.Label(button_frame,textvariable = response_message, relief = "raised")
   spacer.grid(row = 3,
               columnspan = 3,
               sticky = "nsew")
+  response_message.set("")
 
   exit_button = tk.Button(button_frame,
                           text = "▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \nQuit Python-Inventory-Analytics\n ▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱",

@@ -26,7 +26,7 @@ def enter_mysql():
     setup.initialise_tables(cursor)
     cursor.close() # CC Remember to close the connection later as well
 
-def initialise_new_items(values):
+def import_items(values):
 
     # values is a list of tuples; each tuple describes an item in the format: (item_name,item_cost,item_gst,item_discount,item_final_cost,item_margin,item_stock,item_manufacturer_name,item_manufacturer_incharge,item_manufacturer_contact_no)
     command = """INSERT INTO inventory (item_name,item_cost,item_gst,item_discount,item_final_cost,item_margin,item_stock,item_manufacturer_name,item_manufacturer_incharge,item_manufacturer_contact_no)
@@ -39,11 +39,13 @@ def initialise_new_items(values):
     command = command[:-1] + ";" # as last element ends with colon not comma
 
     cursor = conn_obj.cursor()
+    cursor.execute("DELETE FROM inventory")
+    cursor.execute("ALTER TABLE inventory AUTO_INCREMENT = 1")
     cursor.execute(command)
     cursor.execute("commit")
     cursor.close()
 
-def initialise_new_orders(values):
+def import_orders(values):
 
     # values is a list of tuples; each tuple describes an order in the format: (order_item_name,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
     command = """INSERT INTO orders (order_item_name,order_date,order_initial_cost,order_gst,order_discount,order_final_cost,order_quantity,order_customer_name,order_customer_contact_no)
@@ -56,6 +58,8 @@ def initialise_new_orders(values):
     command = command[:-1] + ";" # as last element ends with colon not comma
 
     cursor = conn_obj.cursor()
+    cursor.execute("DELETE FROM orders")
+    cursor.execute("ALTER TABLE orders AUTO_INCREMENT = 1")
     cursor.execute(command)
     cursor.execute("commit")
     cursor.close()
