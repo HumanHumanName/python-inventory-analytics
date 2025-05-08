@@ -7,7 +7,7 @@ import database_handler
 def run_GUI():
   root = tk.Tk()
   root.title("Home view")
-  root.geometry("610x385")
+  root.geometry("610x360")
   root.resizable(False, False)
 
   # setting style
@@ -25,7 +25,7 @@ def run_GUI():
    inventory_viewer = ttk.Treeview(inventory_tab,
                                    columns = ("item_id","item_name","item_cost","item_final_cost","item_stock"),
                                    show = 'headings',
-                                   height = 13
+                                   height = 12
                                    )
    inventory_viewer.grid(row = 1,
                         column = 0,
@@ -68,7 +68,7 @@ def run_GUI():
    orders_viewer = ttk.Treeview(orders_tab,
                                columns = ("order_id","order_item_name","order_customer_name","order_final_cost","order_quantity"),
                                show = 'headings',
-                               height = 13
+                               height = 12
                                )
    orders_viewer.grid(row = 1,
                         column = 0,
@@ -158,6 +158,7 @@ def run_GUI():
                        )
 
   # Each column must take equal amount of space
+  # CC check if this actually like.. does anything (in the one before notebook too)
   first_row_frame.columnconfigure(0, weight=1)
   first_row_frame.columnconfigure(1, weight=1)
   first_row_frame.columnconfigure(2, weight=1)
@@ -251,9 +252,19 @@ def run_GUI():
                    )
 
   # Notebook to contain the two tables in our database
-  tables_notebook = ttk.Notebook(root)
+  table_frame = tk.Frame(root)
+  table_frame.grid(row = 1,
+                  column = 0,
+                  sticky = "nsew"
+                  )
+
+  # Each column must take equal amount of space
+  table_frame.rowconfigure(0, weight=1)
+  table_frame.rowconfigure(1, weight=1)
+  table_frame.rowconfigure(2, weight=1)
+
+  tables_notebook = ttk.Notebook(table_frame)
   tables_notebook.grid(row = 1,
-                       column = 0,
                        padx = 10
                        )
 
