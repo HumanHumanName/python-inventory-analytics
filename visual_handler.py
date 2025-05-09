@@ -7,7 +7,7 @@ import database_handler
 def run_GUI():
   root = tk.Tk()
   root.title("Home view")
-  root.geometry("610x360")
+  root.geometry("605x355")
   root.resizable(False, False)
 
   # setting style
@@ -129,7 +129,7 @@ def run_GUI():
     temp = full_inventory_path.get()
     orders_path.set("Orders path: \n" + temp[:20] + "...")
 
-  database_label = tk.Label(root,text = "▭▭▬▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▬▭▭", relief = "ridge", font = "TkFixedFont")
+  database_label = tk.Label(root,text = "▭▭▪▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▪▭▭", relief = "ridge", font = "TkFixedFont")
   database_label.grid(row = 0,
                      column = 0,
                      padx = 10,
