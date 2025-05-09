@@ -5,10 +5,18 @@ from numpy import genfromtxt
 import database_handler
 
 def run_GUI():
+  # root window definitions
   root = tk.Tk()
-  root.title("Home view")
+  root.title("Python Inventory Analytics")
   root.geometry("605x355")
   root.resizable(False, False)
+
+  home_view = tk.Frame(root)
+  home_view.grid(row=1, column=1, sticky='news')
+
+  modelling_view = tk.Frame(root)
+  modelling_view.grid(row=1, column=1, sticky='news') # CC adjust the row and columns later
+
 
   # setting style
   style=ttk.Style()
@@ -129,7 +137,11 @@ def run_GUI():
     temp = full_inventory_path.get()
     orders_path.set("Orders path: \n" + temp[:20] + "...")
 
-  database_label = tk.Label(root,text = "▭▭▪▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▪▭▭", relief = "ridge", font = "TkFixedFont")
+  def switch_to_modelling_view():
+    modelling_view.tkraise()
+
+  # home view GUI
+  database_label = tk.Label(home_view,text = "▭▭▪▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▪▭▭", relief = "ridge", font = "TkFixedFont")
   database_label.grid(row = 0,
                      column = 0,
                      padx = 10,
@@ -137,14 +149,14 @@ def run_GUI():
                      sticky = "nesw"
                      )
 
-  other_functions_label = tk.Label(root, text = ' ▭▣▓ ▒ ▒ Other Functions ▒ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
+  other_functions_label = tk.Label(home_view, text = ' ▭▣▓ ▒ ▒ Other Functions ▒ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
   other_functions_label.grid(row = 0,
                             column = 1,
                             pady = 10,
                             sticky = "e"
                             )
 
-  button_frame = tk.Frame(root)
+  button_frame = tk.Frame(home_view)
   button_frame.grid(row = 1,
                     column = 1,
                     sticky = "nsew"
@@ -166,6 +178,7 @@ def run_GUI():
   modelling_view_button = tk.Button(first_row_frame,
                                     text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                     font = "TkSmallCaptionFont",
+                                    command = switch_to_modelling_view,
                                     height = 5
                                     )
 
@@ -252,7 +265,7 @@ def run_GUI():
                    )
 
   # Notebook to contain the two tables in our database
-  table_frame = tk.Frame(root)
+  table_frame = tk.Frame(home_view)
   table_frame.grid(row = 1,
                   column = 0,
                   sticky = "nsew"
@@ -275,5 +288,8 @@ def run_GUI():
   tables_notebook.add(orders_tab, text= "    Orders    ")
 
   populate_data()
+
+  # Sets initial frame to be home_view
+  home_view.tkraise()
 
   root.mainloop()
