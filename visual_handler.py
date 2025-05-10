@@ -17,15 +17,14 @@ def run_GUI():
   home_view.grid(row=1, column=1, sticky='news')
 
   modelling_view = tk.Frame(root)
+  modelling_view.columnconfigure(0, weight=1)
   modelling_view.grid(row=1, column=1, sticky='news') # CC adjust the row and columns later
 
 
   # setting style
   style = Style("solar")
-  # style=ttk.Style() # DEBUG
-  # style.theme_use('clam') # DEBUG
 
-  # functions
+  # functions for home view
   def populate_data():
    # removing response message if any
    response_message.set("")
@@ -120,12 +119,25 @@ def run_GUI():
 
   def import_database():
     if full_inventory_path.get() != "" and full_orders_path.get() != "":
-      items = genfromtxt(full_inventory_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
-      database_handler.import_items(items)
+      try:
+        items = genfromtxt(full_inventory_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
+        database_handler.import_items(items)
+      except:
+        # error with csv file
+        response_message.set("Import Unsuccessful; Please check your CSV")
+        spacer.config(fg = "red")
+        return None
 
-      orders = genfromtxt(full_orders_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
-      database_handler.import_orders(orders)
+      try:
+        orders = genfromtxt(full_orders_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
+        database_handler.import_orders(orders)
+      except:
+        # error with csv file
+        response_message.set("Import Unsuccessful; Please check your CSV")
+        spacer.config(fg = "red")
+        return None
 
+      # if function reaches here, the code was sucessfull
       response_message.set("Import Successful; Please Refresh")
       spacer.config(fg = "green")
     else:
@@ -154,7 +166,7 @@ def run_GUI():
                      sticky = "nesw"
                      )
 
-  other_functions_label = tk.Label(home_view, text = ' ▭▣▓ ▒ ▒ Other Functions ▒ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
+  other_functions_label = tk.Label(home_view, text = ' ▭▣▓ ▒ ░ Other Functions ░ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
   other_functions_label.grid(row = 0,
                             column = 1,
                             sticky = "ew"
@@ -268,6 +280,7 @@ def run_GUI():
                    )
 
   # Notebook to contain the two tables in our database
+  # CC fix some places having tk.Frames() and others ttk.Frame()
   table_frame = tk.Frame(home_view)
   table_frame.grid(row = 1,
                   column = 0,
@@ -291,6 +304,47 @@ def run_GUI():
   tables_notebook.add(orders_tab, text= "    Orders    ")
 
   populate_data()
+
+  # functions for modelling view GUI
+  def switch_to_home_view():
+    home_view.tkraise()
+
+  # modelling view GUI
+  title_label = tk.Label(modelling_view, text = "                  ▭▭▪▣▓ ▒ ░ Modelling View ░ ▒ ▓▣▪▭▭                  ", relief = "ridge", font = "TkFixedFont")
+  title_label.grid(row = 0,
+                   column = 0,
+                   pady = 5,
+                   padx = 10
+                   )
+
+  back_button = Button(modelling_view,
+                       text = "Back",
+                       command = switch_to_home_view,
+                       bootstyle = "primary-outline"
+                       )
+  back_button.grid(row = 0,
+                   column = 1,
+                   pady = 5,
+                   padx = 5
+                   )
+
+  models_frame = tk.Frame(modelling_view)
+  models_frame.grid(row = 1,
+                    columnspan = 2,
+                    sticky = "nsew"
+                    )
+
+  models_notebook = ttk.Notebook(models_frame)
+  models_notebook.grid(sticky = "nsew",
+                       padx = 10
+                       )
+
+  inventory_tab= tk.Frame(models_notebook)
+  models_notebook.add(inventory_tab, text= "    Inventory    ")
+
+  orders_tab= tk.Frame(models_notebook)
+  models_notebook.add(orders_tab, text= "    Orders    ")
+
 
   # Sets initial frame to be home_view
   home_view.tkraise()
