@@ -2,13 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from numpy import genfromtxt
+from ttkbootstrap import Style
+from ttkbootstrap.widgets import Button, Treeview
 import database_handler
 
 def run_GUI():
   # root window definitions
   root = tk.Tk()
   root.title("Python Inventory Analytics")
-  root.geometry("605x355")
+  root.geometry("660x365")
   root.resizable(False, False)
 
   home_view = tk.Frame(root)
@@ -19,8 +21,9 @@ def run_GUI():
 
 
   # setting style
-  style=ttk.Style()
-  style.theme_use('clam')
+  style = Style("solar")
+  # style=ttk.Style() # DEBUG
+  # style.theme_use('clam') # DEBUG
 
   # functions
   def populate_data():
@@ -30,10 +33,11 @@ def run_GUI():
    # inventory viewer
    inventory_data = database_handler.retrieve_via_sql_query("item_id,item_name,item_cost,item_final_cost,item_stock","inventory")
 
-   inventory_viewer = ttk.Treeview(inventory_tab,
+   inventory_viewer = Treeview(inventory_tab,
                                    columns = ("item_id","item_name","item_cost","item_final_cost","item_stock"),
                                    show = 'headings',
-                                   height = 12
+                                   height = 13,
+                                   bootstyle='success'
                                    )
    inventory_viewer.grid(row = 1,
                         column = 0,
@@ -49,10 +53,10 @@ def run_GUI():
    inventory_viewer.configure(yscrollcommand=scrollbar.set)
 
    # initialising columns
-   inventory_viewer.column("item_id", anchor="center", width=40)
+   inventory_viewer.column("item_id", anchor="center", width=45)
    inventory_viewer.heading('item_id', text = 'S.No')
 
-   inventory_viewer.column("item_name", anchor="center", width=80)
+   inventory_viewer.column("item_name", anchor="center", width=75)
    inventory_viewer.heading('item_name', text = 'Name')
 
    inventory_viewer.column("item_cost", anchor="center", width=55)
@@ -73,10 +77,11 @@ def run_GUI():
    # orders viewer code
    orders_data = database_handler.retrieve_via_sql_query("order_id,order_item_name,order_customer_name,order_final_cost,order_quantity","orders")
 
-   orders_viewer = ttk.Treeview(orders_tab,
+   orders_viewer = Treeview(orders_tab,
                                columns = ("order_id","order_item_name","order_customer_name","order_final_cost","order_quantity"),
                                show = 'headings',
-                               height = 12
+                               height = 13,
+                               bootstyle='success'
                                )
    orders_viewer.grid(row = 1,
                         column = 0,
@@ -87,15 +92,15 @@ def run_GUI():
    scrollbar = ttk.Scrollbar(orders_tab, orient = "vertical", command = orders_viewer.yview)
    scrollbar.grid(row = 1,
                   column = 1,
-                  sticky="nswe"
+                  sticky="nsew"
                   )
    orders_viewer.configure(yscrollcommand=scrollbar.set)
 
    # initialising columns
-   orders_viewer.column("order_id", anchor="center", width=40)
+   orders_viewer.column("order_id", anchor="center", width=45)
    orders_viewer.heading('order_id', text = 'S.No')
 
-   orders_viewer.column("order_item_name", anchor="center", width=80)
+   orders_viewer.column("order_item_name", anchor="center", width=75)
    orders_viewer.heading('order_item_name', text = 'Item')
 
    orders_viewer.column("order_customer_name", anchor="center", width=60)
@@ -152,8 +157,7 @@ def run_GUI():
   other_functions_label = tk.Label(home_view, text = ' ▭▣▓ ▒ ▒ Other Functions ▒ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
   other_functions_label.grid(row = 0,
                             column = 1,
-                            pady = 10,
-                            sticky = "e"
+                            sticky = "ew"
                             )
 
   button_frame = tk.Frame(home_view)
@@ -166,6 +170,7 @@ def run_GUI():
   first_row_frame = tk.Frame(button_frame)
   first_row_frame.grid(row = 0,
                        columnspan = 3,
+                       pady = 5,
                        sticky = "nsew"
                        )
 
@@ -175,29 +180,29 @@ def run_GUI():
   first_row_frame.columnconfigure(1, weight=1)
   first_row_frame.columnconfigure(2, weight=1)
 
-  modelling_view_button = tk.Button(first_row_frame,
+  # CC fix formating (tabs)
+  modelling_view_button = Button(first_row_frame,
                                     text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
-                                    font = "TkSmallCaptionFont",
                                     command = switch_to_modelling_view,
-                                    height = 5
+                                    bootstyle="primary-outline"
                                     )
 
   modelling_view_button.grid(row = 0,
                             column = 0,
                             pady = 5,
-                            sticky = "nsew"
+                            sticky = "e"
                             )
 
-  refresh_database_button = tk.Button(first_row_frame,
-                                     text = "▰▱▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰",
-                                     font = "TkSmallCaptionFont",
+  refresh_database_button = Button(first_row_frame,
+                                     text = "▰▱▰▱▰▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰▰▱▰",
                                      command = populate_data,
-                                     height = 5,
+                                     bootstyle="warning-outline"
                                      )
 
   refresh_database_button.grid(row = 0,
                               column = 1,
                               pady = 5,
+                              padx = 5,
                               sticky = "nsew"
                              )
 
@@ -205,17 +210,14 @@ def run_GUI():
   full_inventory_path = tk.StringVar()
   full_orders_path = tk.StringVar()
 
-  import_database_button = tk.Button(first_row_frame,
-                                    text = "▰▱▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰",
-                                    font = "TkSmallCaptionFont",
+  import_database_button = Button(first_row_frame,
+                                    text = "▰▱▰▱▰▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰▰▱▰",
                                     command = import_database,
-                                    height = 5,
+                                    bootstyle="success-outline"
                                     )
 
   import_database_button.grid(row = 0,
-                             column = 2,
-                             pady = 5,
-                             sticky = "nsew"
+                             column = 2
                              )
 
   inventory_path = tk.StringVar()
@@ -250,6 +252,7 @@ def run_GUI():
   spacer = tk.Label(button_frame,textvariable = response_message, relief = "raised")
   spacer.grid(row = 3,
               columnspan = 3,
+              pady = 5,
               sticky = "nsew")
   response_message.set("")
 
