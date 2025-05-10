@@ -1,0 +1,5 @@
+# Following 4 lines for ignoring py_cache (including the comment as a line)
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
