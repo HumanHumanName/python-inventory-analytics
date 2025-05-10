@@ -339,11 +339,11 @@ def run_GUI():
                        padx = 10
                        )
 
-  inventory_tab= tk.Frame(models_notebook)
-  models_notebook.add(inventory_tab, text= "    Inventory    ")
+  inventory_model__tab= tk.Frame(models_notebook)
+  models_notebook.add(inventory_model__tab, text= "    Inventory    ")
 
-  orders_tab= tk.Frame(models_notebook)
-  models_notebook.add(orders_tab, text= "    Orders    ")
+  orders_model_tab= tk.Frame(models_notebook)
+  models_notebook.add(orders_model_tab, text= "    Orders    ")
 
 
   # Sets initial frame to be home_view
