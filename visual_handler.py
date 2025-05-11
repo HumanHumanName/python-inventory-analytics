@@ -3,7 +3,8 @@ from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from numpy import genfromtxt
 from ttkbootstrap import Style
-from ttkbootstrap.widgets import Button, Treeview
+ # DEBUG CC remove Frame later V
+from ttkbootstrap.widgets import Button, Treeview, Frame
 import database_handler
 
 def run_GUI():
@@ -17,7 +18,8 @@ def run_GUI():
   home_view.grid(row=1, column=1, sticky='news')
 
   modelling_view = tk.Frame(root)
-  modelling_view.columnconfigure(0, weight=1)
+  modelling_view.columnconfigure(0,weight = 1)
+  modelling_view.rowconfigure(1, weight=1)
   modelling_view.grid(row=1, column=1, sticky='news') # CC adjust the row and columns later
 
 
@@ -309,42 +311,80 @@ def run_GUI():
   def switch_to_home_view():
     home_view.tkraise()
 
+  def switch_to_inventory_models_view():
+    inventory_models_view.tkraise()
+
+  def switch_to_order_models_view():
+    order_models_view.tkraise()
+
   # modelling view GUI
-  title_label = tk.Label(modelling_view, text = "                  ▭▭▪▣▓ ▒ ░ Modelling View ░ ▒ ▓▣▪▭▭                  ", relief = "ridge", font = "TkFixedFont")
+  title_row = tk.Frame(modelling_view)
+  title_row.columnconfigure(0, weight=1) # centering
+  title_row.columnconfigure(1, weight=0)
+  title_row.columnconfigure(2, weight=1)
+
+  # CC remove redundant properties later
+  title_row.grid(row = 0,
+                 columnspan = 3,
+                 sticky = "nsew"
+                 )
+
+  inventory_view_button = Button(title_row,
+                            text = "Inventory",
+                            command = switch_to_inventory_models_view,
+                            bootstyle = "warning-outline"
+                            )
+  inventory_view_button.grid(row = 0,
+                             column = 0
+                            )
+
+  order_view_button = Button(title_row,
+                            text = "Orders",
+                            command = switch_to_order_models_view,
+                            bootstyle = "success-outline"
+                            )
+  order_view_button.grid(row = 0,
+                        column = 1
+                        )
+
+  title_label = tk.Label(title_row, text = "       ▭▭▪▣▓ ▒ ░ Modelling View ░ ▒ ▓▣▪▭▭       ", relief = "ridge", font = "TkFixedFont")
   title_label.grid(row = 0,
-                   column = 0,
-                   pady = 5,
-                   padx = 10
+                   column = 2
                    )
 
-  back_button = Button(modelling_view,
+  back_button = Button(title_row,
                        text = "Back",
                        command = switch_to_home_view,
                        bootstyle = "primary-outline"
                        )
   back_button.grid(row = 0,
-                   column = 1,
-                   pady = 5,
-                   padx = 5
+                   column = 3,
+                   pady = 5
                    )
 
-  models_frame = tk.Frame(modelling_view)
-  models_frame.grid(row = 1,
-                    columnspan = 2,
-                    sticky = "nsew"
+  # padx = (10,0) pads only on left side
+  inventory_models_view = Frame(modelling_view, bootstyle = "warning") # DEBUG Frame instead of tk.frame CC remove later
+  inventory_models_view.grid(row = 1,
+                              columnspan = 2,
+                              padx = (10,0),
+                              sticky = "nsew"
+                              )
+
+  debug_label1 = tk.Label(inventory_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Inventory View Placeholder░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
+  debug_label1.grid(row = 0) # DEBUG
+
+  # padx = (10,0) pads only on left side
+  order_models_view = Frame(modelling_view, bootstyle = "success") # DEBUG Frame instead of tk.frame CC remove later
+  order_models_view.grid(row = 1,
+                          columnspan = 2,
+                          padx = (10,0),
+                          sticky = "nsew"
                     )
 
-  models_notebook = ttk.Notebook(models_frame)
-  models_notebook.grid(sticky = "nsew",
-                       padx = 10
-                       )
+  debug_label2 = tk.Label(order_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Orders View Placeholder░░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
+  debug_label2.grid(row = 0) # DEBUG
 
-  inventory_model__tab= tk.Frame(models_notebook)
-  models_notebook.add(inventory_model__tab, text= "    Inventory    ")
-
-  orders_model_tab= tk.Frame(models_notebook)
-  models_notebook.add(orders_model_tab, text= "    Orders    ")
-
+  inventory_models_view.tkraise()
 
   # Sets initial frame to be home_view
   home_view.tkraise()
