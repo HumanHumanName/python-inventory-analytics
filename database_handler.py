@@ -1,6 +1,7 @@
 # Requires MqSQL connector
 import mysql.connector as conn
 import setup
+import sys # to exit the program
 
 conn_obj = "" # this is used to create the connection to mysql via enter_mysql()
 
@@ -12,12 +13,16 @@ def enter_mysql():
         try:
             user_name = str(input("Please enter your MySQL username: "))
             user_password = str(input("Please enter your MySQL password: "))
-            print("Running locally...")
+            user_port = str(input("Please enter MySQL port: ('localhost' if local): "))
+            print("Attempting connection...")
 
-            conn_obj = conn.connect(host = "localhost", user = user_name, passwd = user_password)
+            conn_obj = conn.connect(host = user_port, user = user_name, passwd = user_password)
             correct_credentials = True
         except:
-            print("There was a mistake with the username/password; Please try again \n")
+            exit_program = input("There was a mistake with the username, password or port; Please any key to try again (or 'q' to quit) \n")
+            if exit_program == "q":
+                sys.exit(1) # exits program
+
 
     if conn_obj.is_connected() == True:
         print("Connected successfully")

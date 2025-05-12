@@ -8,7 +8,7 @@ from ttkbootstrap.widgets import Button, Treeview, Frame
 import database_handler
 
 def run_GUI():
-  # root window definitions
+  # all window definitions
   root = tk.Tk()
   root.title("Python Inventory Analytics")
   root.geometry("660x365")
@@ -35,15 +35,15 @@ def run_GUI():
    inventory_data = database_handler.retrieve_via_sql_query("item_id,item_name,item_cost,item_final_cost,item_stock","inventory")
 
    inventory_viewer = Treeview(inventory_tab,
-                                   columns = ("item_id","item_name","item_cost","item_final_cost","item_stock"),
-                                   show = 'headings',
-                                   height = 13,
-                                   bootstyle='success'
-                                   )
+                               columns = ("item_id","item_name","item_cost","item_final_cost","item_stock"),
+                               show = 'headings',
+                               height = 13,
+                               bootstyle='success'
+                               )
    inventory_viewer.grid(row = 1,
-                        column = 0,
-                        sticky = "e"
-                        )
+                         column = 0,
+                         sticky = "e"
+                         )
 
    # creating the scrollbar
    scrollbar = ttk.Scrollbar(inventory_tab, orient = "vertical", command = inventory_viewer.yview)
@@ -79,21 +79,21 @@ def run_GUI():
    orders_data = database_handler.retrieve_via_sql_query("order_id,order_item_name,order_customer_name,order_final_cost,order_quantity","orders")
 
    orders_viewer = Treeview(orders_tab,
-                               columns = ("order_id","order_item_name","order_customer_name","order_final_cost","order_quantity"),
-                               show = 'headings',
-                               height = 13,
-                               bootstyle='success'
-                               )
+                            columns = ("order_id","order_item_name","order_customer_name","order_final_cost","order_quantity"),
+                            show = 'headings',
+                            height = 13,
+                            bootstyle='success'
+                            )
    orders_viewer.grid(row = 1,
-                        column = 0,
-                        sticky = "e"
-                        )
+                      column = 0,
+                      sticky = "e"
+                      )
 
    # creating the scrollbar
    scrollbar = ttk.Scrollbar(orders_tab, orient = "vertical", command = orders_viewer.yview)
    scrollbar.grid(row = 1,
                   column = 1,
-                  sticky="nsew"
+                   sticky="nsew"
                   )
    orders_viewer.configure(yscrollcommand=scrollbar.set)
 
@@ -162,17 +162,17 @@ def run_GUI():
   # home view GUI
   database_label = tk.Label(home_view,text = "▭▭▪▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▪▭▭", relief = "ridge", font = "TkFixedFont")
   database_label.grid(row = 0,
-                     column = 0,
-                     padx = 10,
-                     pady = 10,
-                     sticky = "nesw"
-                     )
+                      column = 0,
+                      padx = 10,
+                      pady = 10,
+                      sticky = "nesw"
+                      )
 
   other_functions_label = tk.Label(home_view, text = ' ▭▣▓ ▒ ░ Other Functions ░ ▒ ▓▣▭ ', relief = "ridge", font = "TkFixedFont")
   other_functions_label.grid(row = 0,
-                            column = 1,
-                            sticky = "ew"
-                            )
+                             column = 1,
+                             sticky = "ew"
+                             )
 
   button_frame = tk.Frame(home_view)
   button_frame.grid(row = 1,
@@ -196,43 +196,43 @@ def run_GUI():
 
   # CC fix formating (tabs)
   modelling_view_button = Button(first_row_frame,
-                                    text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
-                                    command = switch_to_modelling_view,
-                                    bootstyle="primary-outline"
-                                    )
+                                 text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
+                                 command = switch_to_modelling_view,
+                                 bootstyle="primary-outline"
+                                 )
 
   modelling_view_button.grid(row = 0,
-                            column = 0,
-                            pady = 5,
-                            sticky = "e"
-                            )
+                             column = 0,
+                             pady = 5,
+                             sticky = "e"
+                             )
 
   refresh_database_button = Button(first_row_frame,
-                                     text = "▰▱▰▱▰▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰▰▱▰",
-                                     command = populate_data,
-                                     bootstyle="warning-outline"
-                                     )
+                                   text = "▰▱▰▱▰▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰▰▱▰",
+                                   command = populate_data,
+                                   bootstyle="warning-outline"
+                                   )
 
   refresh_database_button.grid(row = 0,
-                              column = 1,
-                              pady = 5,
-                              padx = 5,
-                              sticky = "nsew"
-                             )
+                               column = 1,
+                               pady = 5,
+                               padx = 5,
+                               sticky = "nsew"
+                               )
 
 
   full_inventory_path = tk.StringVar()
   full_orders_path = tk.StringVar()
 
   import_database_button = Button(first_row_frame,
-                                    text = "▰▱▰▱▰▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰▰▱▰",
-                                    command = import_database,
-                                    bootstyle="success-outline"
-                                    )
+                                  text = "▰▱▰▱▰▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰▰▱▰",
+                                  command = import_database,
+                                  bootstyle="success-outline"
+                                  )
 
   import_database_button.grid(row = 0,
-                             column = 2
-                             )
+                              column = 2
+                              )
 
   inventory_path = tk.StringVar()
   inventory_path_button = tk.Button(button_frame,
@@ -244,30 +244,31 @@ def run_GUI():
   inventory_path.set("Set inventory path")
 
   inventory_path_button.grid(row = 1,
-                            columnspan = 3,
-                            sticky = "nsew"
-  )
+                             columnspan = 3,
+                             sticky = "nsew"
+                             )
 
   orders_path = tk.StringVar()
   orders_path_button = tk.Button(button_frame,
-                                textvariable = orders_path,
-                                font = "TkFixedFont",
-                                command = set_orders_path,
-                                height = 3
-                                )
+                                 textvariable = orders_path,
+                                 font = "TkFixedFont",
+                                 command = set_orders_path,
+                                 height = 3
+                                 )
   orders_path.set("Set orders path")
 
   orders_path_button.grid(row = 2,
                           columnspan = 3,
                           sticky = "nsew"
-  )
+                          )
 
   response_message = tk.StringVar()
   spacer = tk.Label(button_frame,textvariable = response_message, relief = "raised")
   spacer.grid(row = 3,
               columnspan = 3,
               pady = 5,
-              sticky = "nsew")
+              sticky = "nsew"
+              )
   response_message.set("")
 
   exit_button = tk.Button(button_frame,
@@ -285,9 +286,9 @@ def run_GUI():
   # CC fix some places having tk.Frames() and others ttk.Frame()
   table_frame = tk.Frame(home_view)
   table_frame.grid(row = 1,
-                  column = 0,
-                  sticky = "nsew"
-                  )
+                   column = 0,
+                   sticky = "nsew"
+                   )
 
   # Each column must take equal amount of space
   table_frame.rowconfigure(0, weight=1)
@@ -330,19 +331,19 @@ def run_GUI():
                  )
 
   inventory_view_button = Button(title_row,
-                            text = "Inventory",
-                            command = switch_to_inventory_models_view,
-                            bootstyle = "warning-outline"
-                            )
+                                 text = "Inventory",
+                                 command = switch_to_inventory_models_view,
+                                 bootstyle = "warning-outline"
+                                 )
   inventory_view_button.grid(row = 0,
                              column = 0
-                            )
+                             )
 
   order_view_button = Button(title_row,
-                            text = "Orders",
-                            command = switch_to_order_models_view,
-                            bootstyle = "success-outline"
-                            )
+                             text = "Orders",
+                             command = switch_to_order_models_view,
+                             bootstyle = "success-outline"
+                             )
   order_view_button.grid(row = 0,
                         column = 1
                         )
@@ -365,10 +366,10 @@ def run_GUI():
   # padx = (10,0) pads only on left side
   inventory_models_view = Frame(modelling_view, bootstyle = "warning") # DEBUG Frame instead of tk.frame CC remove later
   inventory_models_view.grid(row = 1,
-                              columnspan = 2,
-                              padx = (10,0),
-                              sticky = "nsew"
-                              )
+                             columnspan = 2,
+                             padx = (10,0),
+                             sticky = "nsew"
+                             )
 
   debug_label1 = tk.Label(inventory_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Inventory View Placeholder░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
   debug_label1.grid(row = 0) # DEBUG
@@ -376,10 +377,10 @@ def run_GUI():
   # padx = (10,0) pads only on left side
   order_models_view = Frame(modelling_view, bootstyle = "success") # DEBUG Frame instead of tk.frame CC remove later
   order_models_view.grid(row = 1,
-                          columnspan = 2,
-                          padx = (10,0),
-                          sticky = "nsew"
-                    )
+                         columnspan = 2,
+                         padx = (10,0),
+                         sticky = "nsew"
+                         )
 
   debug_label2 = tk.Label(order_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Orders View Placeholder░░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
   debug_label2.grid(row = 0) # DEBUG
