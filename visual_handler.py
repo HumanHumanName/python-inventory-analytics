@@ -19,8 +19,8 @@ def run_GUI():
 
   modelling_view = tk.Frame(root)
   modelling_view.columnconfigure(0,weight = 1)
-  modelling_view.rowconfigure(1, weight=1)
-  modelling_view.grid(row=1, column = 1, sticky='news')
+  modelling_view.rowconfigure(1, weight = 1)
+  modelling_view.grid(row = 1, column = 1, sticky = 'news')
 
 
   # setting style
@@ -38,7 +38,7 @@ def run_GUI():
                                columns = ("item_id","item_name","item_cost","item_final_cost","item_stock"),
                                show = 'headings',
                                height = 13,
-                               bootstyle='success'
+                               bootstyle = 'success'
                                )
    inventory_viewer.grid(row = 1,
                          column = 0,
@@ -49,24 +49,24 @@ def run_GUI():
    scrollbar = ttk.Scrollbar(inventory_tab, orient = "vertical", command = inventory_viewer.yview)
    scrollbar.grid(row = 1,
                   column = 1,
-                  sticky="nsew"
+                  sticky = "nsew"
                   )
-   inventory_viewer.configure(yscrollcommand=scrollbar.set)
+   inventory_viewer.configure(yscrollcommand = scrollbar.set)
 
    # initialising columns
-   inventory_viewer.column("item_id", anchor="center", width=45)
+   inventory_viewer.column("item_id", anchor = "center", width = 45)
    inventory_viewer.heading('item_id', text = 'S.No')
 
-   inventory_viewer.column("item_name", anchor="center", width=75)
+   inventory_viewer.column("item_name", anchor = "center", width = 75)
    inventory_viewer.heading('item_name', text = 'Name')
 
-   inventory_viewer.column("item_cost", anchor="center", width=55)
+   inventory_viewer.column("item_cost", anchor = "center", width = 55)
    inventory_viewer.heading('item_cost', text = 'Cost')
 
-   inventory_viewer.column("item_final_cost", anchor="center", width=55)
+   inventory_viewer.column("item_final_cost", anchor = "center", width = 55)
    inventory_viewer.heading('item_final_cost', text = 'Total')
 
-   inventory_viewer.column("item_stock", anchor="center", width=50)
+   inventory_viewer.column("item_stock", anchor = "center", width = 50)
    inventory_viewer.heading('item_stock', text = 'Stock')
 
    inventory_viewer.grid(row = 1, column = 0)
@@ -82,7 +82,7 @@ def run_GUI():
                             columns = ("order_id","order_item_name","order_customer_name","order_final_cost","order_quantity"),
                             show = 'headings',
                             height = 13,
-                            bootstyle='success'
+                            bootstyle = 'success'
                             )
    orders_viewer.grid(row = 1,
                       column = 0,
@@ -93,24 +93,24 @@ def run_GUI():
    scrollbar = ttk.Scrollbar(orders_tab, orient = "vertical", command = orders_viewer.yview)
    scrollbar.grid(row = 1,
                   column = 1,
-                  sticky="nsew"
+                  sticky = "nsew"
                   )
-   orders_viewer.configure(yscrollcommand=scrollbar.set)
+   orders_viewer.configure(yscrollcommand = scrollbar.set)
 
    # initialising columns
-   orders_viewer.column("order_id", anchor="center", width=45)
+   orders_viewer.column("order_id", anchor = "center", width = 45)
    orders_viewer.heading('order_id', text = 'S.No')
 
-   orders_viewer.column("order_item_name", anchor="center", width=75)
+   orders_viewer.column("order_item_name", anchor = "center", width = 75)
    orders_viewer.heading('order_item_name', text = 'Item')
 
-   orders_viewer.column("order_customer_name", anchor="center", width=60)
+   orders_viewer.column("order_customer_name", anchor = "center", width = 60)
    orders_viewer.heading('order_customer_name', text = 'Name')
 
-   orders_viewer.column("order_final_cost", anchor="center", width=55)
+   orders_viewer.column("order_final_cost", anchor = "center", width = 55)
    orders_viewer.heading('order_final_cost', text = 'Total')
 
-   orders_viewer.column("order_quantity", anchor="center", width=45)
+   orders_viewer.column("order_quantity", anchor = "center", width = 45)
    orders_viewer.heading('order_quantity', text = 'Amt')
 
    orders_viewer.grid(row = 1, column = 0)
@@ -120,7 +120,7 @@ def run_GUI():
      orders_viewer.insert(parent = '', index = tk.END, values = i)
 
   def import_database():
-    if full_inventory_path.get() != "" and full_orders_path.get() != "":
+    if full_inventory_path.get() !=  "" and full_orders_path.get() !=  "":
       try:
         items = genfromtxt(full_inventory_path.get(), delimiter = ",", dtype = None, skip_header = 1, encoding = "utf8")
         database_handler.import_items(items)
@@ -147,7 +147,7 @@ def run_GUI():
       spacer.config(fg = "red")
 
   def set_inventory_path():
-    full_inventory_path.set(tk.filedialog.askopenfilename())
+    full_inventory_path.set(tk.filedialog.askopenfilename ())
     temp = full_inventory_path.get()
     inventory_path.set("Inventory path: \n" + temp[:20] + "...")
 
@@ -190,7 +190,7 @@ def run_GUI():
   modelling_view_button = Button(first_row_frame,
                                  text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                  command = switch_to_modelling_view,
-                                 bootstyle="primary-outline"
+                                 bootstyle = "primary-outline"
                                  )
 
   modelling_view_button.grid(row = 0,
@@ -202,7 +202,7 @@ def run_GUI():
   refresh_database_button = Button(first_row_frame,
                                    text = "▰▱▰▱▰▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰▰▱▰",
                                    command = populate_data,
-                                   bootstyle="warning-outline"
+                                   bootstyle = "warning-outline"
                                    )
 
   refresh_database_button.grid(row = 0,
@@ -219,7 +219,7 @@ def run_GUI():
   import_database_button = Button(first_row_frame,
                                   text = "▰▱▰▱▰▰▱▰ \n 🗎 Import \n Database \n ▰▱▰▱▰▰▱▰",
                                   command = import_database,
-                                  bootstyle="success-outline"
+                                  bootstyle = "success-outline"
                                   )
 
   import_database_button.grid(row = 0,
@@ -282,20 +282,20 @@ def run_GUI():
                    )
 
   # Each column must take equal amount of space
-  table_frame.rowconfigure(0, weight=1)
-  table_frame.rowconfigure(1, weight=1)
-  table_frame.rowconfigure(2, weight=1)
+  table_frame.rowconfigure(0, weight = 1)
+  table_frame.rowconfigure(1, weight = 1)
+  table_frame.rowconfigure(2, weight = 1)
 
   tables_notebook = ttk.Notebook(table_frame)
   tables_notebook.grid(row = 1,
                        padx = 10
                        )
 
-  inventory_tab= tk.Frame(tables_notebook)
-  tables_notebook.add(inventory_tab, text= "    Inventory    ")
+  inventory_tab =  tk.Frame(tables_notebook)
+  tables_notebook.add(inventory_tab, text =  "    Inventory    ")
 
-  orders_tab= tk.Frame(tables_notebook)
-  tables_notebook.add(orders_tab, text= "    Orders    ")
+  orders_tab =  tk.Frame(tables_notebook)
+  tables_notebook.add(orders_tab, text =  "    Orders    ")
 
   populate_data()
 
@@ -311,9 +311,9 @@ def run_GUI():
 
   # modelling view GUI
   title_row = tk.Frame(modelling_view)
-  title_row.columnconfigure(0, weight=1) # centering
-  title_row.columnconfigure(1, weight=0)
-  title_row.columnconfigure(2, weight=1)
+  title_row.columnconfigure(0, weight = 1) # centering
+  title_row.columnconfigure(1, weight = 0)
+  title_row.columnconfigure(2, weight = 1)
 
 
   title_row.grid(row = 0,
