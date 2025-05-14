@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from numpy import genfromtxt
 from ttkbootstrap import Style
- # DEBUG CC remove Frame later V
+ # DEBUG remove Frame later V
 from ttkbootstrap.widgets import Button, Treeview, Frame
 import database_handler
 
@@ -15,12 +15,12 @@ def run_GUI():
   root.resizable(False, False)
 
   home_view = tk.Frame(root)
-  home_view.grid(row=1, column=1, sticky='news')
+  home_view.grid(row = 1, column = 1, sticky = 'news')
 
   modelling_view = tk.Frame(root)
   modelling_view.columnconfigure(0,weight = 1)
   modelling_view.rowconfigure(1, weight=1)
-  modelling_view.grid(row=1, column=1, sticky='news') # CC adjust the row and columns later
+  modelling_view.grid(row=1, column = 1, sticky='news')
 
 
   # setting style
@@ -49,7 +49,7 @@ def run_GUI():
    scrollbar = ttk.Scrollbar(inventory_tab, orient = "vertical", command = inventory_viewer.yview)
    scrollbar.grid(row = 1,
                   column = 1,
-                  sticky="nswe"
+                  sticky="nsew"
                   )
    inventory_viewer.configure(yscrollcommand=scrollbar.set)
 
@@ -69,7 +69,7 @@ def run_GUI():
    inventory_viewer.column("item_stock", anchor="center", width=50)
    inventory_viewer.heading('item_stock', text = 'Stock')
 
-   inventory_viewer.grid(row = 1,column = 0)
+   inventory_viewer.grid(row = 1, column = 0)
 
    # insert values into inventory_viewer
    for i in inventory_data:
@@ -93,7 +93,7 @@ def run_GUI():
    scrollbar = ttk.Scrollbar(orders_tab, orient = "vertical", command = orders_viewer.yview)
    scrollbar.grid(row = 1,
                   column = 1,
-                   sticky="nsew"
+                  sticky="nsew"
                   )
    orders_viewer.configure(yscrollcommand=scrollbar.set)
 
@@ -113,7 +113,7 @@ def run_GUI():
    orders_viewer.column("order_quantity", anchor="center", width=45)
    orders_viewer.heading('order_quantity', text = 'Amt')
 
-   orders_viewer.grid(row = 1,column = 0)
+   orders_viewer.grid(row = 1, column = 0)
 
    # insert values into orders_viewer
    for i in orders_data:
@@ -180,7 +180,6 @@ def run_GUI():
                     sticky = "nsew"
                     )
 
-  #CC insure the ordering of the properties in tk brackets is consitant
   first_row_frame = tk.Frame(button_frame)
   first_row_frame.grid(row = 0,
                        columnspan = 3,
@@ -188,13 +187,6 @@ def run_GUI():
                        sticky = "nsew"
                        )
 
-  # Each column must take equal amount of space
-  # CC check if this actually like.. does anything (in the one before notebook too)
-  first_row_frame.columnconfigure(0, weight=1)
-  first_row_frame.columnconfigure(1, weight=1)
-  first_row_frame.columnconfigure(2, weight=1)
-
-  # CC fix formating (tabs)
   modelling_view_button = Button(first_row_frame,
                                  text = "▰▱▰▱▰▰▱▰\n 📊 Modelling \n Viewport \n ▰▱▰▱▰▰▱▰",
                                  command = switch_to_modelling_view,
@@ -215,8 +207,8 @@ def run_GUI():
 
   refresh_database_button.grid(row = 0,
                                column = 1,
-                               pady = 5,
                                padx = 5,
+                               pady = 5,
                                sticky = "nsew"
                                )
 
@@ -237,8 +229,8 @@ def run_GUI():
   inventory_path = tk.StringVar()
   inventory_path_button = tk.Button(button_frame,
                                     textvariable = inventory_path,
-                                    font = "TkFixedFont",
                                     command = set_inventory_path,
+                                    font = "TkFixedFont",
                                     height = 3
                                     )
   inventory_path.set("Set inventory path")
@@ -251,8 +243,8 @@ def run_GUI():
   orders_path = tk.StringVar()
   orders_path_button = tk.Button(button_frame,
                                  textvariable = orders_path,
-                                 font = "TkFixedFont",
                                  command = set_orders_path,
+                                 font = "TkFixedFont",
                                  height = 3
                                  )
   orders_path.set("Set orders path")
@@ -273,8 +265,8 @@ def run_GUI():
 
   exit_button = tk.Button(button_frame,
                           text = "▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \nQuit Python-Inventory-Analytics\n ▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱",
-                          font = "TkFixedFont",
                           command = root.destroy,
+                          font = "TkFixedFont",
                           height = 2
                           )
   exit_button.grid(row = 4,
@@ -283,7 +275,6 @@ def run_GUI():
                    )
 
   # Notebook to contain the two tables in our database
-  # CC fix some places having tk.Frames() and others ttk.Frame()
   table_frame = tk.Frame(home_view)
   table_frame.grid(row = 1,
                    column = 0,
@@ -300,10 +291,10 @@ def run_GUI():
                        padx = 10
                        )
 
-  inventory_tab= ttk.Frame(tables_notebook)
+  inventory_tab= tk.Frame(tables_notebook)
   tables_notebook.add(inventory_tab, text= "    Inventory    ")
 
-  orders_tab= ttk.Frame(tables_notebook)
+  orders_tab= tk.Frame(tables_notebook)
   tables_notebook.add(orders_tab, text= "    Orders    ")
 
   populate_data()
@@ -324,7 +315,7 @@ def run_GUI():
   title_row.columnconfigure(1, weight=0)
   title_row.columnconfigure(2, weight=1)
 
-  # CC remove redundant properties later
+
   title_row.grid(row = 0,
                  columnspan = 3,
                  sticky = "nsew"
@@ -364,7 +355,7 @@ def run_GUI():
                    )
 
   # padx = (10,0) pads only on left side
-  inventory_models_view = Frame(modelling_view, bootstyle = "warning") # DEBUG Frame instead of tk.frame CC remove later
+  inventory_models_view = Frame(modelling_view, bootstyle = "warning") # DEBUG Frame instead of tk.frame
   inventory_models_view.grid(row = 1,
                              columnspan = 2,
                              padx = (10,0),
@@ -375,7 +366,7 @@ def run_GUI():
   debug_label1.grid(row = 0) # DEBUG
 
   # padx = (10,0) pads only on left side
-  order_models_view = Frame(modelling_view, bootstyle = "success") # DEBUG Frame instead of tk.frame CC remove later
+  order_models_view = Frame(modelling_view, bootstyle = "success") # DEBUG Frame instead of tk.frame
   order_models_view.grid(row = 1,
                          columnspan = 2,
                          padx = (10,0),

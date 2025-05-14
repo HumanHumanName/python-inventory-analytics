@@ -13,7 +13,7 @@ def enter_mysql():
         try:
             user_name = str(input("Please enter your MySQL username: "))
             user_password = str(input("Please enter your MySQL password: "))
-            user_port = str(input("Please enter MySQL port: ('localhost' if local): "))
+            user_port = str(input("Please enter MySQL port: ('localhost' if using localhost): "))
             print("Attempting connection...")
 
             conn_obj = conn.connect(host = user_port, user = user_name, passwd = user_password)
