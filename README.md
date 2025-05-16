@@ -13,9 +13,9 @@ An easy-to-use inventory visualisation software with a stylish dashboard for cri
   
 * MySQL database integration
 
-* (WIP) Visualisation of trends using powerful optimised algorithms
+* **(WIP)** Visualisation of trends using powerful optimised algorithms
 
-* (WIP) Compute basic analytics (e.g., most sold items, restock alerts)
+* **(WIP)** Compute basic analytics (e.g., most sold items, restock alerts)
   
 
 ## Libraries Used
@@ -40,19 +40,19 @@ pip3 install mysql-connector-python
 
 2. [Install MySQL](https://dev.mysql.com/downloads/)
 
-3. (Images in WIP) Create Inventory and Orders Table
+3. **(Images in WIP)** Create Inventory and Orders Table
 
-4. (Instructions in WIP) Export as CSV
+4. **(Instructions in WIP)** Export as CSV
 
-5. (Images in WIP) Set <inventory_table>.csv as inventory path in Home-View
+5. **(Images in WIP)** Set <inventory_table>.csv as inventory path in Home-View
 
-6. (Images in WIP) Set <orders_table>.csv as orders path in Home-View
+6. **(Images in WIP)** Set <orders_table>.csv as orders path in Home-View
 
-7. (Images in WIP) Press Import Database Button
+7. **(Images in WIP)** Press Import Database Button
 
-8. (Images in WIP) Press Refresh Button
+8. **(Images in WIP)** Press Refresh Button
 
-9. (Images in WIP) Click Modelling View Button to switch to Modelling-View 
+9. **(Images in WIP)** Click Modelling View Button to switch to Modelling-View 
 
 
 ## How to Run
