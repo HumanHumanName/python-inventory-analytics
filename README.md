@@ -59,7 +59,9 @@ pip3 install mysql-connector-python
 
 Simply run the main Python file from the directory of the python-inventory-analytics folder:
 
+```
 python3 main.py
+```
 
 
 ## Project Status
