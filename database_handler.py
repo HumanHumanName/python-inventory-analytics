@@ -13,10 +13,15 @@ def enter_mysql():
         try:
             user_name = str(input("Please enter your MySQL username: "))
             user_password = str(input("Please enter your MySQL password: "))
-            user_port = str(input("Please enter MySQL port: ('localhost' if using localhost): "))
+            user_host = str(input("Please enter MySQL host: ('localhost' if using localhost): "))
+            user_port = str(input("Please enter MySQL port: ('n' if using localhost): "))
             print("Attempting connection...")
 
-            conn_obj = conn.connect(host = user_port, user = user_name, passwd = user_password)
+            if user_port == 'n':
+                conn_obj = conn.connect(host = user_host, user = user_name, passwd = user_password)
+            else:
+                conn_obj = conn.connect(host = user_host, port = user_port, user = user_name, passwd = user_password)
+
             correct_credentials = True
         except:
             exit_program = input("There was a mistake with the username, password or port; Please any key to try again (or 'q' to quit) \n")

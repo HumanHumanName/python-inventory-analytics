@@ -6,6 +6,10 @@ from ttkbootstrap import Style
  # DEBUG remove Frame later V
 from ttkbootstrap.widgets import Button, Treeview, Frame
 import database_handler
+import matplotlib.pyplot as plt
+# fix order ^ to make more sense
+
+# CC bring back all the formatting cc's that i removed after formatting in the middle
 
 def run_GUI():
   # all window definitions
@@ -21,7 +25,6 @@ def run_GUI():
   modelling_view.columnconfigure(0,weight = 1)
   modelling_view.rowconfigure(1, weight = 1)
   modelling_view.grid(row = 1, column = 1, sticky = 'news')
-
 
   # setting style
   style = Style("solar")
@@ -299,6 +302,7 @@ def run_GUI():
 
   populate_data()
 
+
   # functions for modelling view GUI
   def switch_to_home_view():
     home_view.tkraise()
@@ -308,7 +312,6 @@ def run_GUI():
 
   def switch_to_order_models_view():
     order_models_view.tkraise()
-
   # modelling view GUI
   title_row = tk.Frame(modelling_view)
   title_row.columnconfigure(0, weight = 1) # centering
@@ -355,15 +358,15 @@ def run_GUI():
                    )
 
   # padx = (10,0) pads only on left side
-  inventory_models_view = Frame(modelling_view, bootstyle = "warning") # DEBUG Frame instead of tk.frame
+  inventory_models_view = tk.Frame(modelling_view) # DEBUG Frame instead of tk.frame
   inventory_models_view.grid(row = 1,
                              columnspan = 2,
                              padx = (10,0),
                              sticky = "nsew"
                              )
 
-  debug_label1 = tk.Label(inventory_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Inventory View Placeholder░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
-  debug_label1.grid(row = 0) # DEBUG
+  #debug_label1 = tk.Label(inventory_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Inventory View Placeholder░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
+  #debug_label1.grid(row = 0) # DEBUG
 
   # padx = (10,0) pads only on left side
   order_models_view = Frame(modelling_view, bootstyle = "success") # DEBUG Frame instead of tk.frame
@@ -377,6 +380,39 @@ def run_GUI():
   debug_label2.grid(row = 0) # DEBUG
 
   inventory_models_view.tkraise()
+
+  # MC (mantras code) start
+  def draw_plot():
+      inventory_data = database_handler.retrieve_via_sql_query("item_name,item_cost", "inventory")
+
+      item_name_list = [inventory_data[i][0] for i in range(0,len(inventory_data))]
+
+      item_cost_list = [inventory_data[i][1] for i in range(0,len(inventory_data))]
+
+      plt.plot(item_name_list, item_cost_list, marker = 'x')
+      plt.title("Item vs Cost")
+      plt.xlabel("Item Name")
+      plt.ylabel("Item Cost")
+
+      # CC reimplement close graph button in the lauchning button
+      # def close_graph():
+      #     plt.close()
+      # button = tk.Button(root, text = "Close Graph", command = close_graph)
+
+      plt.show()
+
+  temp_graph_launch_button = Button(inventory_models_view,
+                                 text = "▰▱▰▱▰▰▱▰ \n 📊 Graph \n Item vs Cost \n ▰▱▰▱▰▰▱▰",
+                                 command = draw_plot,
+                                 bootstyle = "primary"
+                                 )
+  temp_graph_launch_button.grid(row = 0,
+                                padx = 5,
+                                pady = 5,
+                                sticky = "nsew"
+                                )
+
+  # MC (mantras code) end
 
   # Sets initial frame to be home_view
   home_view.tkraise()
