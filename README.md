@@ -50,13 +50,27 @@ pip3 install mysql-connector-python
     </details>
   </details>
 
-4. **(Instructions in WIP)** Export as CSV
+4. <details> <summary> Export As CSV </summary>
+      <details> <summary> From Spreadsheet </summary>
+        <b>(Images in WIP)</b>
+    </details>  
+  
+    <details> <summary> From CSV </summary>
+        Already in CSV format
+    </details>
+  </details>
 
-5. **(Images in WIP)** Set <inventory_table>.csv as inventory path in Home-View
+5. <details> <summary> Set <inventory_table>.csv as inventory path in Home-View </summary>
+      <b>(Image in WIP)</b>
+   </details>
 
-6. **(Images in WIP)** Set <orders_table>.csv as orders path in Home-View
-
-7. **(Images in WIP)** Press Import Database Button
+6. <details> <summary> Set <orders_table>.csv as orders path in Home-View </summary>
+      <b>(Image in WIP)</b>
+   </details>
+   
+7. <details> <summary> Press Import Database Button </summary>
+      <b>(Image in WIP)</b>
+   </details>
 
 8. **(Images in WIP)** Press Refresh Button
 
