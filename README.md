@@ -40,7 +40,15 @@ pip3 install mysql-connector-python
 
 2. [Install MySQL](https://dev.mysql.com/downloads/)
 
-3. **(Images in WIP)** Create Inventory and Orders Table
+3. <details> <summary> Create Inventory and Orders Table </summary>
+      <details> <summary> Via Spreadsheet </summary>
+        <b>(Images in WIP)</b>
+    </details>  
+  
+    <details> <summary> Via CSV </summary>
+        <b>(Images in WIP)</b>
+    </details>
+  </details>
 
 4. **(Instructions in WIP)** Export as CSV
 
