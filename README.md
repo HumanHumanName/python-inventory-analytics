@@ -72,10 +72,13 @@ pip3 install mysql-connector-python
       <b>(Image in WIP)</b>
    </details>
 
-8. **(Images in WIP)** Press Refresh Button
+8. <details> <summary> Press Refresh Button </summary>
+      <b>(Image in WIP)</b>
+   </details>
 
-9. **(Images in WIP)** Click Modelling View Button to switch to Modelling-View 
-
+9. <details> <summary> Click Modelling View Button to switch to Modelling-View  </summary>
+      <b>(Image in WIP)</b>
+   </details>
 
 ## How to Run
 
