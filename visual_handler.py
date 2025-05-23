@@ -320,6 +320,59 @@ def run_GUI():
 
   def switch_to_order_models_view():
     order_models_view.tkraise()
+
+  def draw_name_cost_plot(save_plot = False):
+      inventory_data = database_handler.retrieve_via_sql_query("item_name,item_cost", "inventory")
+      item_name_list = [inventory_data[i][0] for i in range(0,len(inventory_data))]
+      item_cost_list = [inventory_data[i][1] for i in range(0,len(inventory_data))]
+
+      fig, ax = plt.subplots(figsize=(4, 3))
+      ax.plot(item_name_list, item_cost_list, marker='x')
+      ax.set_title("Item vs Cost")
+
+      # CC see if we can implement V (clutters the view at the moment)
+      # ax.set_xlabel("Item Name")
+      # ax.set_ylabel("Item Cost")
+      # fig.autofmt_xdate()
+
+      canvas = FigureCanvasTkAgg(fig, master = inventory_models_view)
+      canvas.get_tk_widget().grid(row = 0,
+                                 column = 0,
+                                 padx = 5,
+                                 pady = 7,
+                                 sticky = "nsew"
+                                 )
+      canvas.draw()
+
+      # CC in db_hander add this as a function in another table and make allow comparing possible
+
+      # data_pairs = list(zip(item_cost_list, item_name_list))
+      if save_plot == True:
+        img_buffer = io.BytesIO()
+        fig.savefig(img_buffer, format='png')
+        img_buffer.seek(0) # resetting the pointer to the start of the byte stream again so that we can recall the data later
+
+
+      # mydb = mysql.connector.connect(
+      #     host="localhost",
+      #     user="kores",
+      #     password="03.14159",
+      #     database="analytics"
+      # )
+      # mycursor = mydb.cursor()
+      # print("DB Connected!!")
+
+      # sql = "INSERT INTO project (item_cost_list, item_name_list, plot_image) VALUES (%s, %s, %s)"
+      # data_with_image = [(s, d, img_buffer.getvalue()) for s, d in data_pairs]
+      # mycursor.executemany(sql, data_with_image)
+
+      # mydb.commit()
+      # print(mycursor.rowcount, " rows were inserted with plot image.")
+      # mydb.close()
+
+  def save_plot():
+    draw_name_cost_plot(True) # refreshs the plot and saves it
+
   # modelling view GUI
   title_row = tk.Frame(modelling_view)
   title_row.columnconfigure(0, weight = 1) # centering
@@ -373,9 +426,6 @@ def run_GUI():
                              sticky = "nsew"
                              )
 
-  #debug_label1 = tk.Label(inventory_models_view, text = "   ▭▭▪▣▓ ▒ ░ Temp Inventory View Placeholder░ ▒ ▓▣▪▭▭   ", relief = "ridge", font = "TkFixedFont")# DEBUG
-  #debug_label1.grid(row = 0) # DEBUG
-
   # padx = (10,0) pads only on left side
   order_models_view = Frame(modelling_view, bootstyle = "success") # DEBUG Frame instead of tk.frame
   order_models_view.grid(row = 1,
@@ -389,57 +439,19 @@ def run_GUI():
 
   inventory_models_view.tkraise()
 
-  # MC (mantras code) start
-  def draw_name_cost_plot():
-      inventory_data = database_handler.retrieve_via_sql_query("item_name,item_cost", "inventory")
-      item_name_list = [inventory_data[i][0] for i in range(0,len(inventory_data))]
-      item_cost_list = [inventory_data[i][1] for i in range(0,len(inventory_data))]
-
-      fig, ax = plt.subplots(figsize=(4, 3))
-      ax.plot(item_name_list, item_cost_list, marker='x')
-      ax.set_title("Item vs Cost")
-
-      # CC see if we can implement V (clutters the view at the moment)
-      # ax.set_xlabel("Item Name")
-      # ax.set_ylabel("Item Cost")
-      # fig.autofmt_xdate()
-
-      canvas = FigureCanvasTkAgg(fig, master = inventory_models_view)
-      canvas.get_tk_widget().grid(row = 0,
-                                 column = 0,
-                                 padx = 5,
-                                 pady = 7,
-                                 sticky = "nsew"
-                                 )
-      canvas.draw()
-
-      # CC in db_hander add this as a function in another table and make allow comparing possible
-
-      # data_pairs = list(zip(item_cost_list, item_name_list))
-
-      # img_buffer = io.BytesIO()
-      # fig.savefig(img_buffer, format='png')
-      # img_buffer.seek(0) # resetting the pointer to the start of the byte stream again so that we can recall the data later
-
-
-      # mydb = mysql.connector.connect(
-      #     host="localhost",
-      #     user="kores",
-      #     password="03.14159",
-      #     database="analytics"
-      # )
-      # mycursor = mydb.cursor()
-      # print("DB Connected!!")
-
-      # sql = "INSERT INTO project (item_cost_list, item_name_list, plot_image) VALUES (%s, %s, %s)"
-      # data_with_image = [(s, d, img_buffer.getvalue()) for s, d in data_pairs]
-      # mycursor.executemany(sql, data_with_image)
-
-      # mydb.commit()
-      # print(mycursor.rowcount, " rows were inserted with plot image.")
-      # mydb.close()
+  # inventory viewer
   draw_name_cost_plot()
-  # MC (mantras code) end
+
+  # CC add functionallity later
+  save_plot_button = tk.Button(inventory_models_view,
+                               text = "▰▱▰▱▰▰▱▰ \n 🗎 Save Plot \n ▰▱▰▱▰▰▱▰",
+                               command = save_plot)
+  save_plot_button.grid(row = 0,
+                        column = 1,
+                        padx = 5)
+
+
+
 
   # Sets initial frame to be home_view
   home_view.tkraise()
