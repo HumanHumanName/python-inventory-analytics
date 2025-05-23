@@ -7,6 +7,9 @@ from ttkbootstrap import Style
 from ttkbootstrap.widgets import Button, Treeview, Frame
 import database_handler
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import io
+import sys
 # fix order ^ to make more sense
 
 # CC bring back all the formatting cc's that i removed after formatting in the middle
@@ -17,6 +20,8 @@ def run_GUI():
   root.title("Python Inventory Analytics")
   root.geometry("660x365")
   root.resizable(False, False)
+  root.protocol('WM_DELETE_WINDOW', sys.exit)
+
 
   home_view = tk.Frame(root)
   home_view.grid(row = 1, column = 1, sticky = 'news')
@@ -159,9 +164,12 @@ def run_GUI():
     temp = full_inventory_path.get()
     orders_path.set("Orders path: \n" + temp[:20] + "...")
 
+  def refresh():
+    populate_data()
+    draw_name_cost_plot()
+
   def switch_to_modelling_view():
     modelling_view.tkraise()
-
   # home view GUI
   database_label = tk.Label(home_view,text = "▭▭▪▣▓ ▒ ░ Database Viewer ░ ▒ ▓▣▪▭▭", relief = "ridge", font = "TkFixedFont")
   database_label.grid(row = 0,
@@ -204,7 +212,7 @@ def run_GUI():
 
   refresh_database_button = Button(first_row_frame,
                                    text = "▰▱▰▱▰▰▱▰ \n ↻ Refresh \n  Database \n ▰▱▰▱▰▰▱▰",
-                                   command = populate_data,
+                                   command = refresh,
                                    bootstyle = "warning-outline"
                                    )
 
@@ -268,7 +276,7 @@ def run_GUI():
 
   exit_button = tk.Button(button_frame,
                           text = "▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \nQuit Python-Inventory-Analytics\n ▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱",
-                          command = root.destroy,
+                          command = sys.exit,
                           font = "TkFixedFont",
                           height = 2
                           )
@@ -358,7 +366,7 @@ def run_GUI():
                    )
 
   # padx = (10,0) pads only on left side
-  inventory_models_view = tk.Frame(modelling_view) # DEBUG Frame instead of tk.frame
+  inventory_models_view = tk.Frame(modelling_view)
   inventory_models_view.grid(row = 1,
                              columnspan = 2,
                              padx = (10,0),
@@ -382,36 +390,55 @@ def run_GUI():
   inventory_models_view.tkraise()
 
   # MC (mantras code) start
-  def draw_plot():
+  def draw_name_cost_plot():
       inventory_data = database_handler.retrieve_via_sql_query("item_name,item_cost", "inventory")
-
       item_name_list = [inventory_data[i][0] for i in range(0,len(inventory_data))]
-
       item_cost_list = [inventory_data[i][1] for i in range(0,len(inventory_data))]
 
-      plt.plot(item_name_list, item_cost_list, marker = 'x')
-      plt.title("Item vs Cost")
-      plt.xlabel("Item Name")
-      plt.ylabel("Item Cost")
+      fig, ax = plt.subplots(figsize=(4, 3))
+      ax.plot(item_name_list, item_cost_list, marker='x')
+      ax.set_title("Item vs Cost")
 
-      # CC reimplement close graph button in the lauchning button
-      # def close_graph():
-      #     plt.close()
-      # button = tk.Button(root, text = "Close Graph", command = close_graph)
+      # CC see if we can implement V (clutters the view at the moment)
+      # ax.set_xlabel("Item Name")
+      # ax.set_ylabel("Item Cost")
+      # fig.autofmt_xdate()
 
-      plt.show()
-
-  temp_graph_launch_button = Button(inventory_models_view,
-                                 text = "▰▱▰▱▰▰▱▰ \n 📊 Graph \n Item vs Cost \n ▰▱▰▱▰▰▱▰",
-                                 command = draw_plot,
-                                 bootstyle = "primary"
+      canvas = FigureCanvasTkAgg(fig, master = inventory_models_view)
+      canvas.get_tk_widget().grid(row = 0,
+                                 column = 0,
+                                 padx = 5,
+                                 pady = 7,
+                                 sticky = "nsew"
                                  )
-  temp_graph_launch_button.grid(row = 0,
-                                padx = 5,
-                                pady = 5,
-                                sticky = "nsew"
-                                )
+      canvas.draw()
 
+      # CC in db_hander add this as a function in another table and make allow comparing possible
+
+      # data_pairs = list(zip(item_cost_list, item_name_list))
+
+      # img_buffer = io.BytesIO()
+      # fig.savefig(img_buffer, format='png')
+      # img_buffer.seek(0) # resetting the pointer to the start of the byte stream again so that we can recall the data later
+
+
+      # mydb = mysql.connector.connect(
+      #     host="localhost",
+      #     user="kores",
+      #     password="03.14159",
+      #     database="analytics"
+      # )
+      # mycursor = mydb.cursor()
+      # print("DB Connected!!")
+
+      # sql = "INSERT INTO project (item_cost_list, item_name_list, plot_image) VALUES (%s, %s, %s)"
+      # data_with_image = [(s, d, img_buffer.getvalue()) for s, d in data_pairs]
+      # mycursor.executemany(sql, data_with_image)
+
+      # mydb.commit()
+      # print(mycursor.rowcount, " rows were inserted with plot image.")
+      # mydb.close()
+  draw_name_cost_plot()
   # MC (mantras code) end
 
   # Sets initial frame to be home_view
