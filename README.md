@@ -42,11 +42,25 @@ pip3 install mysql-connector-python
 
 3. <details> <summary> Create Inventory and Orders Table </summary>
       <details> <summary> Via Spreadsheet </summary>
-        <b>(Images in WIP)</b>
+        <p>This is what the Inventory Table should look like </p>
+         <i>⚠️ONLY FIRST ROW MUST BE EXACTLY THE SAME IN YOURS</i>
+         <br>
+        ![Example Table for inventory](https://github.com/user-attachments/assets/b3e597e2-bedd-462b-8862-c55f5aadcf51)
+        <p>This is what the Orders Table should look like </p>
+         <i>⚠️ONLY FIRST ROW MUST BE EXACTLY THE SAME IN YOURS</i>
+        <br>
+        ![Example Table for Orders](https://github.com/user-attachments/assets/5344be90-97ff-4142-8e22-fb244056f475)
     </details>  
   
     <details> <summary> Via CSV </summary>
-        <b>(Images in WIP)</b>
+        <p>This is what the Inventory File should look like </p>
+         <i>⚠️ONLY FIRST LINE MUST BE EXACTLY THE SAME IN YOURS</i>
+         <br>
+        ![image](https://github.com/user-attachments/assets/80364fc8-bfb5-4ec6-9f1a-bad18f1cc443)
+        <p>This is what the Orders File should look like </p>
+         <i>⚠️ONLY FIRST LINE MUST BE EXACTLY THE SAME IN YOURS</i>
+        <br>
+        ![image](https://github.com/user-attachments/assets/36d0cad5-ba0e-452a-b5cb-94a3c6072f5d)
     </details>
   </details>
 
