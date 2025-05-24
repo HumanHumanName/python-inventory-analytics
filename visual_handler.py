@@ -352,23 +352,7 @@ def run_GUI():
         fig.savefig(img_buffer, format='png')
         img_buffer.seek(0) # resetting the pointer to the start of the byte stream again so that we can recall the data later
 
-
-      # mydb = mysql.connector.connect(
-      #     host="localhost",
-      #     user="kores",
-      #     password="03.14159",
-      #     database="analytics"
-      # )
-      # mycursor = mydb.cursor()
-      # print("DB Connected!!")
-
-      # sql = "INSERT INTO project (item_cost_list, item_name_list, plot_image) VALUES (%s, %s, %s)"
-      # data_with_image = [(s, d, img_buffer.getvalue()) for s, d in data_pairs]
-      # mycursor.executemany(sql, data_with_image)
-
-      # mydb.commit()
-      # print(mycursor.rowcount, " rows were inserted with plot image.")
-      # mydb.close()
+        database_handler.save_plot_data(img_buffer.getvalue(),"name_cost_plots")
 
   def save_plot():
     draw_name_cost_plot(True) # refreshs the plot and saves it

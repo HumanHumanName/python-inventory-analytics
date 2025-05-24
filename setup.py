@@ -2,14 +2,13 @@
 # Only run once on initialisation
 
 def initialise_tables(cursor):
-  # Working under a database called test_database; Setup
-  # CC Replace test_database with real name later
-  cursor.execute("CREATE DATABASE IF NOT EXISTS test_database")
+  # Working under databases called main_database and plot_database
+  cursor.execute("CREATE DATABASE IF NOT EXISTS main_database")
 
-  cursor.execute("USE test_database")
+  cursor.execute("USE main_database")
   # margin, discount is in percentages and number is in varchar to handle leading zeros
   cursor.execute("DROP TABLE IF EXISTS inventory;") # Handles setup being run more than once
-  cursor.execute("""CREATE TABLE test_database.inventory
+  cursor.execute("""CREATE TABLE main_database.inventory
                   (
                       item_id int(10) not null AUTO_INCREMENT,
                       item_name varchar(20) not null,
@@ -38,7 +37,7 @@ def initialise_tables(cursor):
 
   # discount is in percentages and number is in varchar to handle leading zeros
   cursor.execute("DROP TABLE IF EXISTS orders;") # Handles setup being run more than once
-  cursor.execute("""CREATE TABLE test_database.orders
+  cursor.execute("""CREATE TABLE main_database.orders
                   (
                       order_id int(10) not null AUTO_INCREMENT,
                       order_item_name varchar(20) not null,
@@ -63,3 +62,18 @@ def initialise_tables(cursor):
                  ("Potato","2025-04-08",139.00,10.00,5.00,122.55,1,"W.E. Noe","1777888999");
                  """) # Debug
   cursor.execute('commit')
+
+  # second database only to hold saved images of plots
+  cursor.execute("CREATE DATABASE IF NOT EXISTS plot_database")
+
+  cursor.execute("USE plot_database")
+
+  cursor.execute("DROP TABLE IF EXISTS plot_database.name_cost_plots;") # Handles setup being run more than once
+  cursor.execute("""CREATE TABLE plot_database.name_cost_plots
+                  (
+                      plot_id int(10) not null AUTO_INCREMENT,
+                      plot_data blob not null,
+                      PRIMARY KEY (plot_id)
+                  );""")
+
+  # CC add more plots as tables

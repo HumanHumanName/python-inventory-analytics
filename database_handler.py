@@ -49,6 +49,7 @@ def import_items(values):
     command = command[:-1] + ";" # as last element ends with colon not comma
 
     cursor = conn_obj.cursor()
+    cursor.execute("USE main_database")
     cursor.execute("DELETE FROM inventory")
     cursor.execute("ALTER TABLE inventory AUTO_INCREMENT = 1")
     cursor.execute(command)
@@ -68,13 +69,14 @@ def import_orders(values):
     command = command[:-1] + ";" # as last element ends with colon not comma
 
     cursor = conn_obj.cursor()
+    cursor.execute("USE main_database")
     cursor.execute("DELETE FROM orders")
     cursor.execute("ALTER TABLE orders AUTO_INCREMENT = 1")
     cursor.execute(command)
     cursor.execute("commit")
     cursor.close()
 
-def retrieve_via_sql_query(sql_select, sql_from, sql_where = ""):
+def retrieve_via_sql_query(sql_select, sql_from, sql_where = "",sql_database = "main_database"):
     command = "SELECT " + sql_select + "\n"
 
     if sql_where == "":
@@ -84,6 +86,7 @@ def retrieve_via_sql_query(sql_select, sql_from, sql_where = ""):
         command += "WHERE " + sql_where + ";"
 
     cursor = conn_obj.cursor()
+    cursor.execute("USE " + sql_database + ";")
     cursor.execute(command)
 
     data = cursor.fetchall()
@@ -92,3 +95,14 @@ def retrieve_via_sql_query(sql_select, sql_from, sql_where = ""):
     cursor.close()
 
     return(data)
+
+def save_plot_data(plot_data,plot_type):
+
+    # plot types denotes which table it will save in (example: name_cost_plots) whereas the plot_data is the plot's png from BYTESIO
+    command = "INSERT INTO " + plot_type + " (plot_data)\nVALUES (%s);"
+
+    cursor = conn_obj.cursor()
+    cursor.execute("USE plot_database")
+    cursor.execute(command,[plot_data])
+    cursor.execute("commit")
+    cursor.close()
